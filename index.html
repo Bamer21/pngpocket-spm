@@ -1,0 +1,2480 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNGPOCKET | Portal Digital Perniagaan SPM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 50%, #faf5ff 100%);
+            color: #1e293b;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 45%, #312e81 100%);
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .pocket-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pocket-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -10px rgba(79, 70, 229, 0.15);
+            border-color: #c7d2fe;
+        }
+        .nav-pill-active {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+        .admin-tab-active {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Toast Notification Banner -->
+    <div id="statusBanner" class="hidden fixed top-20 right-4 left-4 md:left-auto md:w-96 z-50 p-4 rounded-2xl shadow-2xl border text-sm font-semibold transition-all duration-300 flex items-center gap-3">
+        <i id="bannerIcon" class="fas fa-check-circle text-lg"></i>
+        <span id="bannerText">Mesej sistem</span>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="glass-header sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
+            <!-- Logo Brand -->
+            <div onclick="navigateTo('home')" class="flex items-center gap-3 cursor-pointer group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-indigo-500/30 group-hover:rotate-6 transition-transform">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <h1 class="font-extrabold text-slate-900 tracking-tight text-lg sm:text-xl leading-none">PNGPOCKET</h1>
+                        <span class="px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 text-[10px] font-extrabold uppercase">SPM 3766</span>
+                    </div>
+                    <p class="text-[11px] font-medium text-slate-500 mt-1">Poket Digital Perniagaan &bull; Cikgu Amer</p>
+                </div>
+            </div>
+
+            <!-- Desktop Menu Pills -->
+            <nav class="hidden lg:flex items-center gap-1.5 bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/70">
+                <button onclick="navigateTo('home')" data-nav="home" class="nav-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-indigo-600 transition">
+                    <i class="fas fa-home mr-1"></i> Utama
+                </button>
+                <button onclick="navigateTo('nota')" data-nav="nota" class="nav-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-indigo-600 transition">
+                    <i class="fas fa-book mr-1"></i> Nota T4 & T5
+                </button>
+                <button onclick="navigateTo('latihan')" data-nav="latihan" class="nav-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-indigo-600 transition">
+                    <i class="fas fa-tasks mr-1"></i> Latihan K1
+                </button>
+                <button onclick="navigateTo('kertas2')" data-nav="kertas2" class="nav-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-indigo-600 transition">
+                    <i class="fas fa-file-alt mr-1"></i> K2 & Skema
+                </button>
+                <button onclick="navigateTo('soalan')" data-nav="soalan" class="nav-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-indigo-600 transition">
+                    <i class="fas fa-layer-group mr-1"></i> Koleksi Soalan
+                </button>
+                <button onclick="navigateTo('bizgame')" data-nav="bizgame" class="nav-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-indigo-600 transition">
+                    <i class="fas fa-gamepad mr-1"></i> Biz Game
+                </button>
+                <button onclick="navigateTo('ai')" data-nav="ai" class="nav-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-indigo-600 transition">
+                    <i class="fas fa-robot mr-1"></i> AI Cikgu Amer
+                </button>
+            </nav>
+
+            <!-- Action Buttons (Login / Admin) -->
+            <div class="flex items-center gap-2">
+                <button id="btnAdminPanel" onclick="navigateTo('admin')" class="hidden px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-extrabold shadow-md shadow-amber-500/25 transition flex items-center gap-1.5">
+                    <i class="fas fa-cog fa-spin"></i>
+                    <span class="hidden sm:inline">Backend Control</span>
+                </button>
+
+                <div id="userBadge" class="hidden items-center gap-2 bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="userDisplayName" class="text-xs font-extrabold text-slate-800 max-w-[115px] truncate">Pengguna</span>
+                    <button onclick="handleLogout()" title="Log Keluar" class="text-slate-400 hover:text-rose-600 transition ml-1">
+                        <i class="fas fa-power-off text-xs"></i>
+                    </button>
+                </div>
+
+                <button id="btnOpenLogin" onclick="openLoginModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs font-extrabold shadow-md shadow-indigo-500/25 transition flex items-center gap-2">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Log Masuk</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Horizontal Scroll Nav -->
+        <div class="lg:hidden flex items-center gap-2 overflow-x-auto px-4 py-2.5 bg-white/70 border-t border-slate-200/70 no-scrollbar">
+            <button onclick="navigateTo('home')" data-nav="home" class="nav-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600">Utama</button>
+            <button onclick="navigateTo('nota')" data-nav="nota" class="nav-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600">Nota T4 & T5</button>
+            <button onclick="navigateTo('latihan')" data-nav="latihan" class="nav-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600">Latihan K1</button>
+            <button onclick="navigateTo('kertas2')" data-nav="kertas2" class="nav-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600">K2 & Skema</button>
+            <button onclick="navigateTo('soalan')" data-nav="soalan" class="nav-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600">Koleksi Soalan</button>
+            <button onclick="navigateTo('bizgame')" data-nav="bizgame" class="nav-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600">Biz Game</button>
+            <button onclick="navigateTo('ai')" data-nav="ai" class="nav-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600">AI Cikgu Amer</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+        <!-- SECTION: UTAMA / HOME -->
+        <section id="sec-home" class="app-section space-y-8">
+            <!-- Hero Card -->
+            <div class="hero-gradient relative overflow-hidden rounded-[2rem] text-white p-7 sm:p-11 shadow-2xl">
+                <div class="relative z-10 max-w-2xl space-y-5">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-300 text-xs font-bold">
+                        <i class="fas fa-star"></i> Platform Pembelajaran Digital Perniagaan SPM
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                        Semua Bahan <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-pink-300 to-indigo-300">Perniagaan SPM</span> Dalam Poket Anda.
+                    </h2>
+                    <p class="text-indigo-100/90 text-sm sm:text-base leading-relaxed">
+                        Ulangkaji nota padat Tingkatan 4 & 5, jawab kuiz Kertas 1, muat turun modul Kertas 2 serta berinteraksi dengan AI Cikgu Amer di mana sahaja.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <button onclick="navigateTo('nota')" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-slate-950 text-xs sm:text-sm font-extrabold shadow-lg transition flex items-center gap-2">
+                            <i class="fas fa-book-open"></i> Teroka Nota T4 & T5
+                        </button>
+                        <button onclick="navigateTo('latihan')" class="px-6 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs sm:text-sm font-bold backdrop-blur-md transition flex items-center gap-2">
+                            <i class="fas fa-pen-nib"></i> Mula Latihan K1
+                        </button>
+                    </div>
+                </div>
+                <!-- Decorative Blobs -->
+                <div class="absolute -right-16 -top-16 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl"></div>
+                <div class="absolute right-20 -bottom-20 w-72 h-72 bg-indigo-500/30 rounded-full blur-3xl"></div>
+            </div>
+
+            <!-- Auto-Update Motivation Banner -->
+            <div class="pocket-card p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-l-4 border-l-amber-500">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white flex items-center justify-center shrink-0 text-xl shadow-md">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-amber-600">Suntikan Motivasi & Tips SPM</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold">Auto-Update 10 Minit</span>
+                        </div>
+                        <p id="motivationQuote" class="text-sm sm:text-base font-bold text-slate-800 mt-1">
+                            "Kejayaan dalam Perniagaan SPM bermula dengan memahami istilah asas dan mengaitkannya dengan situasi dunia sebenar."
+                        </p>
+                    </div>
+                </div>
+                <button onclick="nextMotivation()" class="px-4 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 text-xs font-extrabold shrink-0 transition">
+                    <i class="fas fa-sync-alt mr-1"></i> Tukar Tips
+                </button>
+            </div>
+
+            <!-- 4 Colorful Pocket Modules Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div onclick="navigateTo('nota')" class="pocket-card p-6 cursor-pointer group">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 text-white flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition">
+                        <i class="fas fa-book-reader text-xl"></i>
+                    </div>
+                    <h3 class="font-extrabold text-slate-900 text-lg">Nota T4 & T5</h3>
+                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Ringkasan setiap bab, peta minda dan kata kunci penting DSKP.</p>
+                    <div class="mt-5 pt-3 border-t border-slate-100 text-xs font-extrabold text-blue-600 flex items-center justify-between">
+                        <span id="statNotaCount">0 Bahan Tersedia</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <div onclick="navigateTo('latihan')" class="pocket-card p-6 cursor-pointer group">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition">
+                        <i class="fas fa-check-circle text-xl"></i>
+                    </div>
+                    <h3 class="font-extrabold text-slate-900 text-lg">Latihan Kertas 1</h3>
+                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Kuiz aneka pilihan Google Form berserta rekod penghantaran markah.</p>
+                    <div class="mt-5 pt-3 border-t border-slate-100 text-xs font-extrabold text-emerald-600 flex items-center justify-between">
+                        <span id="statLatihanCount">0 Set Latihan</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <div onclick="navigateTo('kertas2')" class="pocket-card p-6 cursor-pointer group">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 text-white flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition">
+                        <i class="fas fa-file-signature text-xl"></i>
+                    </div>
+                    <h3 class="font-extrabold text-slate-900 text-lg">K2 & Skema</h3>
+                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Latihan struktur, esei dan kajian kes lengkap dengan skema.</p>
+                    <div class="mt-5 pt-3 border-t border-slate-100 text-xs font-extrabold text-purple-600 flex items-center justify-between">
+                        <span id="statK2Count">0 Modul K2</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <div onclick="navigateTo('bizgame')" class="pocket-card p-6 cursor-pointer group">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500 to-orange-500 text-white flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition">
+                        <i class="fas fa-gamepad text-xl"></i>
+                    </div>
+                    <h3 class="font-extrabold text-slate-900 text-lg">Biz Game</h3>
+                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Permainan interaktif Wayground untuk uji kefahaman sambil berhibur.</p>
+                    <div class="mt-5 pt-3 border-t border-slate-100 text-xs font-extrabold text-rose-600 flex items-center justify-between">
+                        <span id="statBizGameCount">0 Permainan</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2 BAHAGIAN LIVE: (1) LIVE CHAT KELAS & (2) PESANAN ANDA -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- BAHAGIAN 1: LIVE CHAT KELAS -->
+                <div class="pocket-card p-6 border-t-4 border-t-indigo-600 flex flex-col justify-between space-y-4">
+                    <div class="flex items-center justify-between gap-2 border-b border-slate-100 pb-3.5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white flex items-center justify-center text-base shadow-md shrink-0">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-extrabold text-slate-900 text-base sm:text-lg">Live Chat Kelas</h3>
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-extrabold uppercase">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Live
+                                    </span>
+                                </div>
+                                <p class="text-[11px] text-slate-500">Sembang pantas & soal jawab ringkas sesama rakan kelas.</p>
+                            </div>
+                        </div>
+                        <span id="liveChatCountBadge" class="text-[11px] font-extrabold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-xl shrink-0">0 Mesej</span>
+                    </div>
+
+                    <!-- Senarai Mesej Live Chat -->
+                    <div id="liveStudentWallList" class="h-72 overflow-y-auto space-y-2.5 p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80">
+                        <div class="text-center text-xs text-slate-400 py-10">Memuatkan sembang langsung...</div>
+                    </div>
+
+                    <!-- Borang Hantar Live Chat -->
+                    <form onsubmit="handlePostLiveWallMessage(event)" class="flex items-center gap-2">
+                        <input type="text" id="liveWallInput" maxlength="200" required placeholder="Taip mesej live chat di sini..." class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-indigo-500 outline-none bg-white">
+                        <button type="submit" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white text-xs font-extrabold shadow-md transition flex items-center gap-1.5 shrink-0">
+                            <i class="fas fa-paper-plane"></i> Hantar
+                        </button>
+                    </form>
+                </div>
+
+                <!-- BAHAGIAN 2: PESANAN ANDA (LIVE BOARD) -->
+                <div class="pocket-card p-6 border-t-4 border-t-amber-500 flex flex-col justify-between space-y-4">
+                    <div class="flex items-center justify-between gap-2 border-b border-slate-100 pb-3.5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 text-white flex items-center justify-center text-base shadow-md shrink-0">
+                                <i class="fas fa-sticky-note"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-extrabold text-slate-900 text-base sm:text-lg">Pesanan Anda</h3>
+                                    <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-extrabold uppercase">Tayangan Live</span>
+                                </div>
+                                <p class="text-[11px] text-slate-500">Tampal pesanan, kata semangat, atau doa kejayaan SPM anda!</p>
+                            </div>
+                        </div>
+                        <span id="pesananCountBadge" class="text-[11px] font-extrabold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-xl shrink-0">0 Pesanan</span>
+                    </div>
+
+                    <!-- Paparan Kad Pesanan Anda (Gaya Papan Notis Gabus & Kertas Nota) -->
+                    <div id="pesananAndaList" class="h-72 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-3.5 p-4 rounded-2xl border-4 border-amber-800/30 shadow-inner" style="background-color: #d9a066; background-image: radial-gradient(rgba(120, 53, 15, 0.22) 1px, transparent 0), radial-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 0); background-size: 16px 16px; background-position: 0 0, 8px 8px;">
+                        <div class="col-span-full text-center text-xs font-bold text-amber-950 bg-white/80 rounded-xl py-8">Memuatkan papan notis...</div>
+                    </div>
+
+                    <!-- Borang Hantar Pesanan Anda -->
+                    <form onsubmit="handlePostPesananMessage(event)" class="flex items-center gap-2">
+                        <input type="text" id="pesananInput" maxlength="220" required placeholder="Tulis pesanan atau kata semangat anda untuk dipaparkan..." class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-amber-500 outline-none bg-white">
+                        <button type="submit" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-extrabold shadow-md transition flex items-center gap-1.5 shrink-0">
+                            <i class="fas fa-thumbtack"></i> Tampal
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION: NOTA T4 & T5 -->
+        <section id="sec-nota" class="app-section hidden space-y-6">
+            <div class="pocket-card p-6 bg-gradient-to-r from-blue-600 to-cyan-600 text-white border-none">
+                <h2 class="text-2xl font-extrabold">Nota Ringkas Tingkatan 4 & 5</h2>
+                <p class="text-xs sm:text-sm text-blue-100 mt-1">Pilih mana-mana modul nota di bawah untuk ulangkaji pantas.</p>
+            </div>
+            <div id="grid-nota" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- SECTION: LATIHAN K1 -->
+        <section id="sec-latihan" class="app-section hidden space-y-6">
+            <div class="pocket-card p-6 bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-none flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-extrabold">Latihan Objektif Kertas 1</h2>
+                    <p class="text-xs sm:text-sm text-emerald-100 mt-1">Jawab kuiz Google Form, kemudian klik butang <b>Hantar Markah</b> untuk rekod guru.</p>
+                </div>
+                <div id="studentSubmissionNotice" class="text-xs bg-white/15 backdrop-blur-md text-white border border-white/25 px-4 py-2.5 rounded-xl font-bold">
+                    <i class="fas fa-info-circle mr-1"></i> Log masuk sebagai Murid untuk menghantar markah.
+                </div>
+            </div>
+            <div id="grid-latihan" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- SECTION: K2 & SKEMA -->
+        <section id="sec-kertas2" class="app-section hidden space-y-6">
+            <div class="pocket-card p-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-none">
+                <h2 class="text-2xl font-extrabold">Latihan Kertas 2 & Skema Pemarkahan</h2>
+                <p class="text-xs sm:text-sm text-purple-100 mt-1">Koleksi soalan struktur, esei dan kajian kes Bahagian C.</p>
+            </div>
+            <div id="grid-kertas2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- SECTION: KOLEKSI SOALAN -->
+        <section id="sec-soalan" class="app-section hidden space-y-6">
+            <div class="pocket-card p-6 bg-gradient-to-r from-amber-500 to-orange-600 text-white border-none">
+                <h2 class="text-2xl font-extrabold">Koleksi Soalan Percubaan & SPM</h2>
+                <p class="text-xs sm:text-sm text-amber-100 mt-1">Set kertas peperiksaan percubaan negeri-negeri dan latih tubi berfokus.</p>
+            </div>
+            <div id="grid-soalan" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- SECTION: BIZ GAME (PAGE 7 - WAYGROUND) -->
+        <section id="sec-bizgame" class="app-section hidden space-y-6">
+            <div class="pocket-card p-6 bg-gradient-to-r from-rose-600 via-pink-600 to-orange-500 text-white border-none flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <span class="px-3 py-1 rounded-full bg-white/20 text-white text-[11px] font-extrabold uppercase tracking-wider">Zon Gamifikasi Wayground</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">Biz Game Interaktif Perniagaan</h2>
+                    <p class="text-xs sm:text-sm text-rose-100 mt-1">Belajar sambil bermain! Pilih mana-mana cabaran permainan Wayground yang disediakan oleh Cikgu Amer.</p>
+                </div>
+                <div class="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center text-3xl shrink-0 border border-white/25">
+                    <i class="fas fa-trophy text-amber-300"></i>
+                </div>
+            </div>
+            <div id="grid-bizgame" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- SECTION: AI CIKGU AMER -->
+        <section id="sec-ai" class="app-section hidden space-y-6">
+            <div class="pocket-card p-6 sm:p-10 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                    <div class="space-y-1.5">
+                        <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-extrabold">Google NotebookLM</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Pembantu AI Perniagaan Cikgu Amer</h2>
+                        <p class="text-sm text-slate-500">Tanya soalan terus berdasarkan buku teks & nota DSKP Perniagaan Tingkatan 4 & 5.</p>
+                    </div>
+                    <a href="https://notebook.google.com/notebook/b0d599a7-880b-4139-8fc0-f8cb05ad60ef" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs sm:text-sm font-extrabold shadow-lg transition inline-flex items-center justify-center gap-2 shrink-0">
+                        <i class="fas fa-external-link-alt"></i> Buka NotebookLM Sekarang
+                    </a>
+                </div>
+                <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 border border-indigo-100 text-center space-y-3">
+                    <div class="w-16 h-16 rounded-2xl bg-white text-indigo-600 shadow-md flex items-center justify-center mx-auto text-3xl">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="font-extrabold text-slate-900 text-lg">Ulangkaji Interaktif & Audio Overview</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed">
+                        Klik butang <b>"Buka NotebookLM Sekarang"</b> di atas untuk memulakan sesi soal jawab pintar bersama nota digital yang telah disediakan oleh Cikgu Amer.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: ADMIN / BACKEND CONTROL PANEL -->
+        <section id="sec-admin" class="app-section hidden space-y-6">
+            <div class="hero-gradient text-white rounded-[2rem] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
+                <div>
+                    <span class="px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-extrabold">Mod Pentadbir (Guru)</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">Backend Control PNGPOCKET</h2>
+                    <p class="text-xs sm:text-sm text-indigo-200 mt-1">Urus senarai murid berdaftar, muat naik nota/latihan, dan semak rekod penghantaran markah.</p>
+                </div>
+                <div class="flex gap-3 text-center">
+                    <div class="bg-white/10 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/15">
+                        <div id="adminTotalStudents" class="text-2xl font-extrabold text-white">0</div>
+                        <div class="text-[11px] font-semibold text-indigo-200">Murid</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/15">
+                        <div id="adminTotalResources" class="text-2xl font-extrabold text-amber-300">0</div>
+                        <div class="text-[11px] font-semibold text-indigo-200">Bahan</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/15">
+                        <div id="adminTotalSubmissions" class="text-2xl font-extrabold text-emerald-300">0</div>
+                        <div class="text-[11px] font-semibold text-indigo-200">Hantaran</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bar Status Awan Firebase & Sandaran Data -->
+            <div class="pocket-card p-4 sm:p-5 bg-gradient-to-r from-slate-900 to-indigo-950 text-white border-none space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center shrink-0">
+                            <i class="fas fa-cloud-upload-alt text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h3 class="text-xs sm:text-sm font-extrabold text-white">Status Pelayan Awan (Firebase)</h3>
+                                <span id="firebaseSyncBadge" class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[10px] font-extrabold">Menyemak sambungan...</span>
+                            </div>
+                            <p id="firebaseSyncHelp" class="text-[11px] text-indigo-200 mt-0.5">Pelajar di telefon mereka hanya boleh log masuk selepas senarai nama disegerakkan ke Firebase Cloud.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2 shrink-0">
+                        <button type="button" onclick="syncAllToFirebaseCloud()" class="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 text-xs font-extrabold transition flex items-center gap-1.5 shadow-md">
+                            <i class="fas fa-sync-alt"></i> Segerak Semua ke Cloud
+                        </button>
+                        <button type="button" onclick="exportBackupData()" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 text-xs font-extrabold transition flex items-center gap-1.5 shadow-md">
+                            <i class="fas fa-download"></i> Backup (.json)
+                        </button>
+                        <label class="px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs font-extrabold transition flex items-center gap-1.5 cursor-pointer">
+                            <i class="fas fa-upload"></i> Import
+                            <input type="file" accept=".json" onchange="importBackupData(event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Sub-Tabs -->
+            <div class="flex flex-wrap gap-2 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm">
+                <button onclick="switchAdminTab('resources')" id="tabBtn-resources" class="admin-tab-btn admin-tab-active px-4 py-2.5 rounded-xl text-xs font-extrabold transition flex items-center gap-2">
+                    <i class="fas fa-folder-plus"></i> Urus Nota & Latihan
+                </button>
+                <button onclick="switchAdminTab('students')" id="tabBtn-students" class="admin-tab-btn px-4 py-2.5 rounded-xl text-xs font-extrabold text-slate-600 hover:bg-slate-100 transition flex items-center gap-2">
+                    <i class="fas fa-user-plus"></i> Daftar & Senarai Murid
+                </button>
+                <button onclick="switchAdminTab('submissions')" id="tabBtn-submissions" class="admin-tab-btn px-4 py-2.5 rounded-xl text-xs font-extrabold text-slate-600 hover:bg-slate-100 transition flex items-center gap-2">
+                    <i class="fas fa-clipboard-check"></i> Semak Markah & Status Penghantaran
+                </button>
+            </div>
+
+            <!-- ADMIN TAB 1: URUS BAHAN (NOTA & LATIHAN) -->
+            <div id="adminPanel-resources" class="admin-panel grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-5 pocket-card p-6 h-fit">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 id="resFormHeading" class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                            <i class="fas fa-plus-circle text-indigo-600"></i> Tambah Nota / Latihan / Game
+                        </h3>
+                        <button type="button" id="cancelEditResBtn" onclick="resetResourceForm()" class="hidden text-xs font-extrabold text-rose-600 hover:underline">
+                            Batal Edit
+                        </button>
+                    </div>
+                    <form id="addResourceForm" onsubmit="handleAddResource(event)" class="space-y-4">
+                        <input type="hidden" id="editResId">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Kategori Bahan</label>
+                            <select id="resCategory" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <option value="nota">Nota Ringkas (T4 & T5)</option>
+                                <option value="latihan">Latihan Kertas 1 (Google Form)</option>
+                                <option value="kertas2">Bahan Kertas 2 & Skema</option>
+                                <option value="soalan">Koleksi Soalan Percubaan</option>
+                                <option value="bizgame">Biz Game (Wayground)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Tajuk Bahan / Latihan / Game</label>
+                            <input type="text" id="resTitle" required placeholder="Cth: Cabaran Wayground Bab 1 Perniagaan" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Keterangan Ringkas</label>
+                            <textarea id="resDesc" rows="2" required placeholder="Cth: Klik pautan untuk mula bermain cabaran Wayground!" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Pautan Utama (Drive / Form / Wayground)</label>
+                            <input type="url" id="resUrl" required placeholder="https://wayground.com/..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Pautan Skema Jawapan (Pilihan)</label>
+                            <input type="url" id="resSchemaUrl" placeholder="https://drive.google.com/..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                        </div>
+                        <button type="submit" id="resSubmitBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold text-sm shadow-md transition">
+                            <i class="fas fa-cloud-upload-alt mr-1.5"></i> Terbitkan Bahan Sekarang
+                        </button>
+                    </form>
+
+                    <!-- Tetapan Kunci API Gemini untuk Live Deployment -->
+                    <div class="mt-6 pt-5 border-t border-slate-200 space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-extrabold text-slate-800 flex items-center gap-1.5">
+                                <i class="fas fa-key text-amber-500"></i> Kunci API Gemini AI (Untuk Live)
+                            </label>
+                            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-indigo-600 hover:underline">Dapatkan Kunci Percuma &rarr;</a>
+                        </div>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">
+                            Tampal kunci API dari Google AI Studio di bawah supaya Chatbot Cikgu Amer berfungsi penuh secara <b>LIVE</b> untuk semua pelajar di Netlify:
+                        </p>
+                        <div class="flex gap-2">
+                            <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy... atau AQ.Ab8..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-indigo-500 outline-none">
+                            <button type="button" onclick="saveLiveGeminiKey()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold transition shrink-0">
+                                Simpan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 pocket-card p-6">
+                    <h3 class="font-extrabold text-slate-900 text-base mb-4">Senarai Bahan Diterbitkan</h3>
+                    <div id="adminResourceList" class="space-y-3 max-h-[540px] overflow-y-auto pr-1"></div>
+                </div>
+            </div>
+
+            <!-- ADMIN TAB 2: DAFTAR & SENARAI MURID -->
+            <div id="adminPanel-students" class="admin-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="pocket-card p-6 h-fit">
+                        <h3 class="font-extrabold text-slate-900 text-base mb-4 flex items-center gap-2">
+                            <i class="fas fa-user-plus text-emerald-600"></i> Daftar Murid Baharu (Satu-satu)
+                        </h3>
+                        <form id="addStudentForm" onsubmit="handleAddStudent(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Nama Penuh Murid</label>
+                                <input type="text" id="studName" required placeholder="Cth: NUR AISYAH BINTI AHMAD" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm uppercase focus:ring-2 focus:ring-emerald-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">PIN Akses Murid (4 Digit)</label>
+                                <input type="text" id="studPin" required maxlength="4" pattern="\d{4}" placeholder="Cth: 2026" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm tracking-widest font-extrabold focus:ring-2 focus:ring-emerald-500 outline-none">
+                                <p class="text-[11px] text-slate-500 mt-1">Murid akan menggunakan Nama dan 4 digit PIN ini untuk log masuk.</p>
+                            </div>
+                            <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-sm shadow-md transition">
+                                <i class="fas fa-check mr-1.5"></i> Simpan & Daftar Murid
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Daftar Pukal (Copy & Paste Ramai Murid Sekaligus) -->
+                    <div class="pocket-card p-6 h-fit">
+                        <h3 class="font-extrabold text-slate-900 text-base mb-2 flex items-center gap-2">
+                            <i class="fas fa-users text-indigo-600"></i> Daftar Pukal (Copy & Paste)
+                        </h3>
+                        <p class="text-[11px] text-slate-500 mb-3 leading-relaxed">
+                            Tampal senarai nama murid (satu nama setiap baris) dengan format <b>NAMA, PIN</b> atau tulis <b>NAMA</b> sahaja (PIN lalai: <b>1234</b>).
+                        </p>
+                        <form onsubmit="handleBulkAddStudents(event)" class="space-y-3">
+                            <textarea id="bulkStudentsInput" rows="4" required placeholder="ALI BIN ABU, 1111&#10;SITI NURHALIZA, 2222&#10;AHMAD DANIEL" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs uppercase focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+                            <button type="submit" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md transition">
+                                <i class="fas fa-layer-group mr-1.5"></i> Daftar Semua Murid Sekaligus
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 pocket-card p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-extrabold text-slate-900 text-base">Senarai Murid Berdaftar</h3>
+                        <span class="text-xs text-slate-500">Digunakan untuk log masuk murid</span>
+                    </div>
+                    <div id="adminStudentList" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[620px] overflow-y-auto pr-1"></div>
+                </div>
+            </div>
+
+            <!-- ADMIN TAB 3: SEMAK MARKAH & STATUS PENGHANTARAN -->
+            <div id="adminPanel-submissions" class="admin-panel hidden space-y-6">
+                <div class="pocket-card p-6 space-y-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                        <div>
+                            <h3 class="font-extrabold text-slate-900 text-base">Rekod Markah & Status Penghantaran Murid</h3>
+                            <p class="text-xs text-slate-500">Semak siapa yang sudah menghantar markah dan siapa yang belum.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-xs font-bold text-slate-600">Tapis Latihan:</label>
+                            <select id="filterExerciseSelect" onchange="renderAllData()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-bold bg-slate-50 outline-none">
+                                <option value="ALL">Semua Latihan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-3">Status Penghantaran Mengikut Senarai Murid</h4>
+                        <div id="studentStatusSummary" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100">
+                        <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-3">Log Terperinci Markah Dihantar</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-600 text-[11px] uppercase tracking-wider border-b border-slate-200">
+                                        <th class="p-3 font-extrabold">Nama Murid</th>
+                                        <th class="p-3 font-extrabold">Tajuk Latihan</th>
+                                        <th class="p-3 font-extrabold">Markah</th>
+                                        <th class="p-3 font-extrabold">Bukti / Catatan</th>
+                                        <th class="p-3 font-extrabold">Masa Hantar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminSubmissionsTable" class="divide-y divide-slate-100 text-xs"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 backdrop-blur-md border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            <p class="font-extrabold text-slate-800">PNGPOCKET &bull; Portal Pembelajaran Digital Perniagaan SPM</p>
+            <p class="mt-1">Dibangunkan khas untuk kegunaan pengajaran & pembelajaran kelas Cikgu Amer.</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING AI CHATBOT: CIKGU AMER -->
+    <div id="cikguAmerChatWidget" class="fixed bottom-5 left-5 z-50 flex flex-col items-start">
+        <!-- Chat Window -->
+        <div id="cikguChatBox" class="hidden mb-3 w-[340px] sm:w-[390px] bg-white rounded-3xl shadow-2xl border border-indigo-100 overflow-hidden flex flex-col transition-all duration-300">
+            <!-- Header with Cute Handsome Cartoon Teacher SVG (No Glasses + Rock Hand Gesture) -->
+            <div class="hero-gradient p-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 border-2 border-amber-300 shadow-md flex items-center justify-center overflow-hidden shrink-0">
+                        <svg viewBox="0 0 120 120" class="w-full h-full">
+                            <rect width="120" height="120" fill="#fef3c7"/>
+                            <!-- Shirt & Tie -->
+                            <path d="M18 120 C18 92, 92 92, 92 120 Z" fill="#1e3a8a"/>
+                            <polygon points="46,94 64,94 55,115" fill="#ffffff"/>
+                            <polygon points="52,96 58,96 60,118 55,120 50,118" fill="#f59e0b"/>
+                            <!-- Neck & Ears -->
+                            <rect x="47" y="76" width="16" height="20" rx="6" fill="#fed7aa"/>
+                            <circle cx="28" cy="56" r="6.5" fill="#fdba74"/>
+                            <circle cx="82" cy="56" r="6.5" fill="#fdba74"/>
+                            <!-- Face -->
+                            <rect x="30" y="24" width="50" height="58" rx="25" fill="#fed7aa"/>
+                            <!-- Stylish Hair -->
+                            <path d="M28 48 C25 20, 48 10, 69 14 C82 16, 87 30, 83 48 C81 34, 72 28, 59 28 C44 28, 34 33, 28 48 Z" fill="#1e293b"/>
+                            <path d="M40 15 Q54 6 68 16" stroke="#334155" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <!-- Eyebrows -->
+                            <path d="M38 44 Q44 40 50 44" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <path d="M61 44 Q67 40 73 44" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <!-- Friendly Eyes (No Glasses) -->
+                            <circle cx="44" cy="52" r="3.8" fill="#0f172a"/>
+                            <circle cx="45.2" cy="50.8" r="1.3" fill="#ffffff"/>
+                            <circle cx="67" cy="52" r="3.8" fill="#0f172a"/>
+                            <circle cx="68.2" cy="50.8" r="1.3" fill="#ffffff"/>
+                            <!-- Cute Blush & Smile -->
+                            <ellipse cx="38" cy="61" rx="4.2" ry="2" fill="#fda4af" opacity="0.7"/>
+                            <ellipse cx="73" cy="61" rx="4.2" ry="2" fill="#fda4af" opacity="0.7"/>
+                            <path d="M47 65 Q55.5 73 64 65" stroke="#9a3412" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+                            <!-- Rock Hand Gesture on Right -->
+                            <g transform="translate(82, 62)">
+                                <rect x="4" y="18" width="20" height="22" rx="8" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+                                <rect x="4" y="2" width="5.5" height="20" rx="2.7" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+                                <rect x="18.5" y="4" width="5.5" height="18" rx="2.7" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+                                <rect x="9.5" y="13" width="5" height="10" rx="2.5" fill="#fdba74" stroke="#ea580c" stroke-width="1.3"/>
+                                <rect x="14" y="13" width="5" height="10" rx="2.5" fill="#fdba74" stroke="#ea580c" stroke-width="1.3"/>
+                                <path d="M2 24 Q10 21 15 26" stroke="#ea580c" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <h4 class="font-extrabold text-sm text-white">Cikgu Amer AI</h4>
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        </div>
+                        <p class="text-[11px] text-indigo-200">Guru Perniagaan SPM &bull; Sedia Membantu</p>
+                    </div>
+                </div>
+                <button onclick="toggleCikguChat()" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition">
+                    <i class="fas fa-chevron-down text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Quick Topic Chips -->
+            <div class="bg-indigo-50/70 px-3 py-2 border-b border-indigo-100 flex gap-1.5 overflow-x-auto no-scrollbar">
+                <button type="button" onclick="sendQuickPrompt('Cikgu, bagi kata-kata semangat untuk SPM!')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-[11px] font-bold text-indigo-700 hover:bg-indigo-600 hover:text-white transition">
+                    🔥 Kata Semangat
+                </button>
+                <button type="button" onclick="sendQuickPrompt('Macam mana nak persediaan mental menghadapi SPM?')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-[11px] font-bold text-indigo-700 hover:bg-indigo-600 hover:text-white transition">
+                    💡 Persediaan SPM
+                </button>
+                <button type="button" onclick="sendQuickPrompt('Terangkan secara ringkas maksud milikan tunggal.')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-[11px] font-bold text-indigo-700 hover:bg-indigo-600 hover:text-white transition">
+                    📘 Nota Pantas
+                </button>
+            </div>
+
+            <!-- Messages Container -->
+            <div id="cikguChatMessages" class="p-4 h-72 overflow-y-auto space-y-3 bg-slate-50/70 text-xs">
+                <div class="flex items-start gap-2.5">
+                    <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center font-extrabold text-[10px] shrink-0 mt-0.5">CA</div>
+                    <div class="bg-white border border-slate-200 text-slate-700 p-3 rounded-2xl rounded-tl-none shadow-sm leading-relaxed">
+                        Assalamualaikum & hai! 👋 Saya <b>Cikgu Amer</b>. Ada soalan tentang Perniagaan SPM, nak minta pendapat, atau perlukan kata-kata semangat hari ni? Tanya je, cikgu sedia bantu! 😊
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Box -->
+            <form onsubmit="handleCikguChatSubmit(event)" class="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
+                <input type="text" id="cikguChatInput" required placeholder="Tanya Cikgu Amer di sini..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-100 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none border border-transparent focus:border-indigo-300">
+                <button type="submit" id="cikguChatSendBtn" class="w-10 h-10 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white flex items-center justify-center shadow-md transition shrink-0">
+                    <i class="fas fa-paper-plane text-xs"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Floating Launcher Button -->
+        <button onclick="toggleCikguChat()" class="group flex items-center gap-3 pl-3 pr-4 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700 text-white shadow-2xl shadow-indigo-500/40 border-2 border-white/80 transition transform hover:scale-105">
+            <div class="w-10 h-10 rounded-full bg-amber-100 border-2 border-amber-300 overflow-hidden flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <rect width="120" height="120" fill="#fef3c7"/>
+                    <path d="M18 120 C18 92, 92 92, 92 120 Z" fill="#1e3a8a"/>
+                    <rect x="30" y="24" width="50" height="58" rx="25" fill="#fed7aa"/>
+                    <path d="M28 48 C25 20, 48 10, 69 14 C82 16, 87 30, 83 48 C81 34, 72 28, 59 28 C44 28, 34 33, 28 48 Z" fill="#1e293b"/>
+                    <circle cx="44" cy="52" r="4" fill="#0f172a"/>
+                    <circle cx="67" cy="52" r="4" fill="#0f172a"/>
+                    <path d="M47 65 Q55.5 73 64 65" stroke="#9a3412" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <!-- Rock Hand Gesture -->
+                    <g transform="translate(82, 60)">
+                        <rect x="4" y="18" width="20" height="22" rx="8" fill="#fed7aa" stroke="#ea580c" stroke-width="1.6"/>
+                        <rect x="4" y="2" width="5.5" height="20" rx="2.7" fill="#fed7aa" stroke="#ea580c" stroke-width="1.6"/>
+                        <rect x="18.5" y="4" width="5.5" height="18" rx="2.7" fill="#fed7aa" stroke="#ea580c" stroke-width="1.6"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="text-left">
+                <div class="text-xs font-extrabold leading-tight">Tanya Cikgu Amer</div>
+                <div class="text-[10px] text-amber-200 font-semibold">AI Chat &bull; Online</div>
+            </div>
+        </button>
+    </div>
+
+    <!-- MODAL: LOG MASUK (GURU & MURID) -->
+    <div id="loginModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
+            <button onclick="closeLoginModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
+                <i class="fas fa-times text-xs"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center mx-auto text-xl mb-3 shadow-md">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-900">Log Masuk PNGPOCKET</h3>
+                <p class="text-xs text-slate-500 mt-1">Pilih peranan anda untuk meneruskan sesi</p>
+            </div>
+
+            <!-- Role Switcher -->
+            <div class="grid grid-cols-2 gap-2 bg-slate-100 p-1.5 rounded-xl mb-5">
+                <button type="button" id="roleTabStudent" onclick="setLoginRole('student')" class="py-2 rounded-lg text-xs font-extrabold bg-white text-indigo-600 shadow-sm transition">
+                    <i class="fas fa-user-graduate mr-1"></i> Murid
+                </button>
+                <button type="button" id="roleTabTeacher" onclick="setLoginRole('teacher')" class="py-2 rounded-lg text-xs font-extrabold text-slate-600 transition">
+                    <i class="fas fa-chalkboard-teacher mr-1"></i> Guru (Admin)
+                </button>
+            </div>
+
+            <!-- Student Login Form -->
+            <form id="studentLoginForm" onsubmit="handleStudentLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Nama Penuh Murid</label>
+                    <input type="text" id="loginStudName" required placeholder="Cth: ALI BIN ABU" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm uppercase focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">PIN Akses (4 Digit)</label>
+                    <input type="password" id="loginStudPin" required maxlength="4" placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm tracking-widest focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold text-sm shadow-md transition">
+                    Log Masuk sebagai Murid
+                </button>
+            </form>
+
+            <!-- Teacher Login Form -->
+            <form id="teacherLoginForm" onsubmit="handleTeacherLogin(event)" class="hidden space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">ID Pengguna Guru</label>
+                    <input type="text" id="loginTeacherUser" required placeholder="Masukkan ID Guru" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Kata Laluan</label>
+                    <input type="password" id="loginTeacherPass" required placeholder="••••••••" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-sm shadow-md transition">
+                    Log Masuk Panel Guru
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: HANTAR MARKAH LATIHAN K1 (MURID) -->
+    <div id="submitMarksModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeSubmitMarksModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
+                <i class="fas fa-times text-xs"></i>
+            </button>
+
+            <h3 class="text-lg font-extrabold text-slate-900">Hantar Rekod Markah & Bukti</h3>
+            <p id="subModalExerciseTitle" class="text-xs font-bold text-indigo-600 mt-1">Tajuk Latihan</p>
+
+            <form id="submitMarksForm" onsubmit="handleSaveSubmission(event)" class="space-y-4 mt-5">
+                <input type="hidden" id="subExerciseId">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Markah Diperoleh (Cth: 18/20 atau 90%)</label>
+                    <input type="text" id="subScore" required placeholder="Cth: 18/20" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-extrabold focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+
+                <div class="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-100 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <label class="block text-xs font-extrabold text-indigo-900">1. Simpan Screenshot ke Drive Guru</label>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-200/70 text-indigo-800">Google Drive</span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 leading-relaxed">
+                        Klik butang di bawah untuk muat naik gambar bukti markah Google Form anda terus ke folder Google Drive Cikgu Amer:
+                    </p>
+                    <a href="https://drive.google.com/drive/folders/1BBNlDq1gQPi5QGVAMtctZBMkmsRyyCXO?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 rounded-xl bg-white hover:bg-indigo-600 text-indigo-700 hover:text-white border border-indigo-200 text-xs font-extrabold transition flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fab fa-google-drive text-sm"></i> Muat Naik Screenshot ke Drive Cikgu
+                    </a>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">2. Pilih Gambar Screenshot (Untuk Semakan Pantas)</label>
+                    <input type="file" id="subScreenshotFile" accept="image/*" class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-extrabold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 border border-slate-300 rounded-xl p-1.5">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">3. Pautan Fail Drive / Catatan Tambahan</label>
+                    <input type="text" id="subProofUrl" placeholder="Tampal pautan Drive atau tulis nama fail screenshot" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-sm shadow-md transition">
+                    <i class="fas fa-paper-plane mr-1.5"></i> Hantar Markah & Bukti Kepada Guru
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: PAPARAN SCREENSHOT BUKTI (GURU) -->
+    <div id="viewProofModal" class="hidden fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 relative space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div>
+                    <h3 id="proofModalStudentName" class="text-base font-extrabold text-slate-900">Bukti Markah Murid</h3>
+                    <p id="proofModalExercise" class="text-xs text-slate-500">Tajuk Latihan</p>
+                </div>
+                <button onclick="closeViewProofModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3 border border-slate-200 flex items-center justify-center min-h-[200px]">
+                <img id="proofModalImg" alt="Bukti Screenshot Murid" class="max-h-[60vh] w-auto rounded-xl object-contain shadow-sm">
+            </div>
+            <div class="flex justify-between items-center pt-1">
+                <a href="https://drive.google.com/drive/folders/1BBNlDq1gQPi5QGVAMtctZBMkmsRyyCXO?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-extrabold text-indigo-600 hover:underline flex items-center gap-1.5">
+                    <i class="fab fa-google-drive"></i> Buka Folder Google Drive
+                </a>
+                <button onclick="closeViewProofModal()" class="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-extrabold">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- APPLICATION SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, setDoc, updateDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // ==========================================
+        // 1. KONFIGURASI FIREBASE & AKAUN PENGGUNA
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyByKeVqROVj1y59MyAdahFHhLusLYGAtYg",
+            authDomain: "pngpocket-spm.firebaseapp.com",
+            projectId: "pngpocket-spm",
+            storageBucket: "pngpocket-spm.firebasestorage.app",
+            messagingSenderId: "636309897151",
+            appId: "1:636309897151:web:e39f1d46710a50db4c6b0a",
+            measurementId: "G-988LCVHXS9"
+        };
+
+        const SENARAI_GURU = [
+            { username: "cikguamer", password: "password123", name: "Cikgu Amer (Admin)" }
+        ];
+
+        const SENARAI_MURID_TETAP = [
+            { id: "fixed-1", name: "ALI BIN ABU", pin: "1234" },
+            { id: "fixed-2", name: "SITI AMINAH BINTI ZUL", pin: "5678" }
+        ];
+
+        const LIVE_GEMINI_API_KEY = "";
+
+        const DEFAULT_RESOURCES = [
+            {
+                id: "def-nota-1",
+                category: "nota",
+                title: "Nota Padat Tingkatan 4: Bab 1 Tujuan Perniagaan",
+                desc: "Ringkasan bentuk pemilikan perniagaan, saiz, dan skala perniagaan.",
+                url: "https://drive.google.com",
+                schemaUrl: ""
+            },
+            {
+                id: "def-latihan-1",
+                category: "latihan",
+                title: "Kuiz Kertas 1: Tujuan Perniagaan & Pemilikan",
+                desc: "20 soalan objektif aneka pilihan Google Form berserta semakan markah automatik.",
+                url: "https://docs.google.com/forms",
+                schemaUrl: ""
+            },
+            {
+                id: "def-k2-1",
+                category: "kertas2",
+                title: "Modul Latihan Kertas 2 & Skema Pemarkahan",
+                desc: "Set soalan struktur, esei dan kajian kes Bahagian C.",
+                url: "https://drive.google.com",
+                schemaUrl: "https://drive.google.com"
+            },
+            {
+                id: "def-game-1",
+                category: "bizgame",
+                title: "Cabaran Wayground: Usahawan Bijak SPM",
+                desc: "Uji kepantasan dan kefahaman konsep asas perniagaan secara interaktif!",
+                url: "https://wayground.com",
+                schemaUrl: ""
+            }
+        ];
+
+        // ==========================================
+        // 2. MOTIVASI & SEMANGAT SPM DINAMIK
+        // ==========================================
+        const MOTIVATION_LIST = [
+            "Success doesn't come from what you do occasionally, it comes from what you do consistently. Sikit-sikit lama-lama jadi A+!",
+            "Jangan stress sangat tengok buku tebal tu—buku tu tak gigit pun, dia cuma rindu nak awak buka je! 😂📚",
+            "Dream big, work hard, stay focused! Masa SPM tinggal tak lama dah, jom pecut habis-habisan kali ni.",
+            "Kalau rasa mengantuk masa ulangkaji, ingat balik muka mak ayah senyum bangga masa awak ambil slip keputusan SPM nanti. ❤️",
+            "Small progress is still progress. Hari ni faham satu topik pun dah dikira menang besar daripada tak buat apa-apa!",
+            "Jangan bandingkan bab 1 awak dengan bab 10 orang lain. Focus on your own pace, yang penting jangan berhenti! 🚀",
+            "Tips nak hadap SPM: Tidur cukup, minum air kosong banyak-banyak, jaga kesihatan mental, dan jangan lupa doa & restu mak ayah.",
+            "Otai SPM tak panik bila exam dekat—dia tarik nafas, senyum, dan buat ulangkaji santai tapi padu! 💪😎",
+            "Your future self is watching you right now through your memories. Make them proud of your SPM hustle!",
+            "Bila rasa nak putus asa, tanya diri sendiri: 'Kalau bukan sekarang, bila lagi?' Cikgu Amer sentiasa doakan kejayaan awak! 🌟"
+        ];
+
+        let currentQuoteIndex = Math.floor(Math.random() * MOTIVATION_LIST.length);
+
+        function nextMotivation() {
+            let nextIdx = Math.floor(Math.random() * MOTIVATION_LIST.length);
+            if (MOTIVATION_LIST.length > 1 && nextIdx === currentQuoteIndex) {
+                nextIdx = (currentQuoteIndex + 1) % MOTIVATION_LIST.length;
+            }
+            currentQuoteIndex = nextIdx;
+            const el = document.getElementById('motivationQuote');
+            if (el) el.textContent = `"${MOTIVATION_LIST[currentQuoteIndex]}"`;
+        }
+
+        // ==========================================
+        // 3. STATE APLIKASI & STORAGE
+        // ==========================================
+        const appId = 'pngpocket-spm-v1';
+        let db = null;
+        let firebaseConnected = false;
+        let currentUser = null;
+        let localResources = [];
+        let localStudents = [];
+        let localSubmissions = [];
+        let localLiveMessages = [];
+        let localPesananList = [];
+        let cikguChatHistory = [];
+
+        function updateFirebaseStatusUI(isOk, detailText) {
+            firebaseConnected = isOk;
+            const badge = document.getElementById('firebaseSyncBadge');
+            const help = document.getElementById('firebaseSyncHelp');
+            if (!badge || !help) return;
+
+            if (isOk) {
+                badge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-extrabold';
+                badge.textContent = '● Cloud Aktif & Diselaraskan';
+                help.textContent = detailText || 'Semua senarai murid, bahan & markah diselaraskan secara langsung ke semua telefon pelajar.';
+            } else {
+                badge.className = 'px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/30 text-[10px] font-extrabold';
+                badge.textContent = '● Cloud Disekat (Perlu Tetapan Firebase)';
+                help.textContent = detailText || 'Sila tambah domain Netlify di Firebase Auth -> Authorized Domains dan benarkan Firestore Rules.';
+            }
+        }
+
+        function loadLocalState() {
+            try {
+                const savedRes = localStorage.getItem('pngpocket_resources');
+                localResources = savedRes ? JSON.parse(savedRes) : [...DEFAULT_RESOURCES];
+
+                const savedStud = localStorage.getItem('pngpocket_students');
+                localStudents = savedStud ? JSON.parse(savedStud) : [];
+
+                const savedSub = localStorage.getItem('pngpocket_submissions');
+                localSubmissions = savedSub ? JSON.parse(savedSub) : [];
+
+                const savedWall = localStorage.getItem('pngpocket_livewall');
+                localLiveMessages = savedWall ? JSON.parse(savedWall) : [
+                    {
+                        id: 'welcome-wall-1',
+                        senderName: 'CIKGU AMER (ADMIN)',
+                        senderRole: 'teacher',
+                        message: 'Hai semua! Sembang & tanya soalan ringkas dengan rakan kelas di sini ya! 💬',
+                        createdAt: new Date().toISOString(),
+                        displayTime: 'Hari Ini'
+                    }
+                ];
+
+                const savedPesanan = localStorage.getItem('pngpocket_pesanan');
+                localPesananList = savedPesanan ? JSON.parse(savedPesanan) : [
+                    {
+                        id: 'welcome-pesanan-1',
+                        senderName: 'CIKGU AMER (ADMIN)',
+                        senderRole: 'teacher',
+                        message: 'Semoga semua calon Perniagaan SPM 3766 berjaya cemerlang A+! Tampal kata semangat anda di sini! 🌟🚀',
+                        createdAt: new Date().toISOString(),
+                        displayTime: 'Hari Ini'
+                    }
+                ];
+
+                const savedUser = sessionStorage.getItem('pngpocket_user');
+                if (savedUser) currentUser = JSON.parse(savedUser);
+            } catch (e) {
+                localResources = [...DEFAULT_RESOURCES];
+                localStudents = [];
+                localSubmissions = [];
+                localLiveMessages = [];
+                localPesananList = [];
+            }
+        }
+
+        function persistLocalState() {
+            try {
+                localStorage.setItem('pngpocket_resources', JSON.stringify(localResources));
+                localStorage.setItem('pngpocket_students', JSON.stringify(localStudents));
+                localStorage.setItem('pngpocket_submissions', JSON.stringify(localSubmissions));
+                localStorage.setItem('pngpocket_livewall', JSON.stringify(localLiveMessages));
+                localStorage.setItem('pngpocket_pesanan', JSON.stringify(localPesananList));
+            } catch (e) {
+                console.warn("Storage penuh:", e);
+            }
+        }
+
+        function sanitizeUrl(rawUrl) {
+            if (!rawUrl || typeof rawUrl !== 'string') return '';
+            const trimmed = rawUrl.trim();
+            try {
+                const parsed = new URL(trimmed);
+                if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+                    return parsed.href;
+                }
+            } catch (e) {}
+            return '';
+        }
+
+        function showBanner(msg, type = 'success') {
+            const banner = document.getElementById('statusBanner');
+            const text = document.getElementById('bannerText');
+            const icon = document.getElementById('bannerIcon');
+            if (!banner || !text || !icon) return;
+
+            text.textContent = msg;
+            banner.className = 'fixed top-20 right-4 left-4 md:left-auto md:w-96 z-50 p-4 rounded-2xl shadow-2xl border text-sm font-semibold transition-all duration-300 flex items-center gap-3 ';
+            if (type === 'error') {
+                banner.className += 'bg-rose-50 border-rose-200 text-rose-800';
+                icon.className = 'fas fa-exclamation-circle text-lg text-rose-600';
+            } else {
+                banner.className += 'bg-emerald-50 border-emerald-200 text-emerald-800';
+                icon.className = 'fas fa-check-circle text-lg text-emerald-600';
+            }
+            banner.classList.remove('hidden');
+            clearTimeout(window._bannerTimer);
+            window._bannerTimer = setTimeout(() => banner.classList.add('hidden'), 4500);
+        }
+
+        // ==========================================
+        // 4. NAVIGASI & UI KAWALAN
+        // ==========================================
+        function navigateTo(sectionId) {
+            if (sectionId === 'admin' && (!currentUser || currentUser.role !== 'teacher')) {
+                showBanner("Akses terhad kepada Guru sahaja.", "error");
+                openLoginModal();
+                return;
+            }
+
+            document.querySelectorAll('.app-section').forEach(sec => sec.classList.add('hidden'));
+            const target = document.getElementById('sec-' + sectionId);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.dataset.nav === sectionId) {
+                    btn.classList.add('nav-pill-active');
+                } else {
+                    btn.classList.remove('nav-pill-active');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateAuthUI() {
+            const btnOpenLogin = document.getElementById('btnOpenLogin');
+            const userBadge = document.getElementById('userBadge');
+            const userDisplayName = document.getElementById('userDisplayName');
+            const btnAdminPanel = document.getElementById('btnAdminPanel');
+            const subNotice = document.getElementById('studentSubmissionNotice');
+
+            if (currentUser) {
+                btnOpenLogin.classList.add('hidden');
+                userBadge.classList.remove('hidden');
+                userBadge.classList.add('flex');
+                userDisplayName.textContent = currentUser.name;
+
+                if (currentUser.role === 'teacher') {
+                    btnAdminPanel.classList.remove('hidden');
+                } else {
+                    btnAdminPanel.classList.add('hidden');
+                }
+
+                if (subNotice) {
+                    subNotice.innerHTML = `<i class="fas fa-user-check mr-1"></i> Log masuk sebagai: <b>${currentUser.name}</b>`;
+                }
+            } else {
+                btnOpenLogin.classList.remove('hidden');
+                userBadge.classList.add('hidden');
+                userBadge.classList.remove('flex');
+                btnAdminPanel.classList.add('hidden');
+                if (subNotice) {
+                    subNotice.innerHTML = `<i class="fas fa-info-circle mr-1"></i> Log masuk sebagai Murid untuk menghantar markah.`;
+                }
+            }
+            renderAllData();
+        }
+
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+
+        function setLoginRole(role) {
+            const sTab = document.getElementById('roleTabStudent');
+            const tTab = document.getElementById('roleTabTeacher');
+            const sForm = document.getElementById('studentLoginForm');
+            const tForm = document.getElementById('teacherLoginForm');
+
+            if (role === 'student') {
+                sTab.className = 'py-2 rounded-lg text-xs font-extrabold bg-white text-indigo-600 shadow-sm transition';
+                tTab.className = 'py-2 rounded-lg text-xs font-extrabold text-slate-600 transition';
+                sForm.classList.remove('hidden');
+                tForm.classList.add('hidden');
+            } else {
+                tTab.className = 'py-2 rounded-lg text-xs font-extrabold bg-white text-indigo-600 shadow-sm transition';
+                sTab.className = 'py-2 rounded-lg text-xs font-extrabold text-slate-600 transition';
+                tForm.classList.remove('hidden');
+                sForm.classList.add('hidden');
+            }
+        }
+
+        function handleStudentLogin(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('loginStudName').value.trim().toUpperCase();
+            const pinInput = document.getElementById('loginStudPin').value.trim();
+
+            const allStudents = [...localStudents, ...SENARAI_MURID_TETAP];
+            const found = allStudents.find(s => s.name.trim().toUpperCase() === nameInput && String(s.pin).trim() === pinInput);
+
+            if (!found) {
+                if (!firebaseConnected && localStudents.length === 0) {
+                    showBanner("Sambungan senarai murid dari pelayan belum aktif. Sila minta Cikgu Amer segerakkan data di Firebase.", "error");
+                } else {
+                    showBanner("Nama murid atau PIN 4 digit tidak sah. Sila semak ejaan nama penuh anda.", "error");
+                }
+                return;
+            }
+
+            currentUser = { role: 'student', name: found.name.toUpperCase(), id: found.id };
+            sessionStorage.setItem('pngpocket_user', JSON.stringify(currentUser));
+            closeLoginModal();
+            updateAuthUI();
+            showBanner(`Selamat datang, ${currentUser.name}!`);
+        }
+
+        function handleTeacherLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('loginTeacherUser').value.trim();
+            const pass = document.getElementById('loginTeacherPass').value.trim();
+
+            const guru = SENARAI_GURU.find(g => g.username === user && g.password === pass);
+            if (!guru) {
+                showBanner("ID Pengguna atau Kata Laluan Guru salah.", "error");
+                return;
+            }
+
+            currentUser = { role: 'teacher', name: guru.name, username: guru.username };
+            sessionStorage.setItem('pngpocket_user', JSON.stringify(currentUser));
+            closeLoginModal();
+            updateAuthUI();
+            navigateTo('admin');
+            showBanner("Berjaya log masuk ke Backend Control Guru!");
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            sessionStorage.removeItem('pngpocket_user');
+            updateAuthUI();
+            navigateTo('home');
+            showBanner("Anda telah log keluar.");
+        }
+
+        function ensureTeacherSession() {
+            return currentUser && currentUser.role === 'teacher';
+        }
+
+        function switchAdminTab(tabName) {
+            document.querySelectorAll('.admin-panel').forEach(p => p.classList.add('hidden'));
+            const panel = document.getElementById('adminPanel-' + tabName);
+            if (panel) panel.classList.remove('hidden');
+
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.classList.remove('admin-tab-active');
+                btn.classList.add('text-slate-600');
+            });
+            const activeBtn = document.getElementById('tabBtn-' + tabName);
+            if (activeBtn) {
+                activeBtn.classList.add('admin-tab-active');
+                activeBtn.classList.remove('text-slate-600');
+            }
+        }
+
+        // ==========================================
+        // 5. AI CHATBOT CIKGU AMER
+        // ==========================================
+        function toggleCikguChat() {
+            const box = document.getElementById('cikguChatBox');
+            if (!box) return;
+            box.classList.toggle('hidden');
+            if (!box.classList.contains('hidden')) {
+                const input = document.getElementById('cikguChatInput');
+                if (input) input.focus();
+            }
+        }
+
+        function appendChatBubble(sender, text) {
+            const container = document.getElementById('cikguChatMessages');
+            if (!container) return;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = sender === 'user' ? 'flex items-end justify-end gap-2' : 'flex items-start gap-2.5';
+
+            if (sender === 'bot') {
+                const avatar = document.createElement('div');
+                avatar.className = 'w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center font-extrabold text-[10px] shrink-0 mt-0.5';
+                avatar.textContent = 'CA';
+                wrapper.appendChild(avatar);
+            }
+
+            const bubble = document.createElement('div');
+            bubble.className = sender === 'user'
+                ? 'bg-indigo-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm max-w-[80%] leading-relaxed'
+                : 'bg-white border border-slate-200 text-slate-700 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[82%] leading-relaxed';
+            bubble.textContent = text;
+
+            wrapper.appendChild(bubble);
+            container.appendChild(wrapper);
+            container.scrollTop = container.scrollHeight;
+            return wrapper;
+        }
+
+        async function fetchCikguAmerReply(userMessage) {
+            const savedLiveKey = localStorage.getItem('pngpocket_gemini_key') || LIVE_GEMINI_API_KEY || "";
+            const apiKey = savedLiveKey.trim();
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const systemPrompt = `Anda ialah Cikgu Amer, seorang guru lelaki subjek Perniagaan SPM (Kod 3766) di Malaysia yang mesra, sempoi, ceria dan rapat dengan pelajar.
+Gaya bahasa WAJIB:
+- Ringkas, padat dan menarik (maksimum 2 hingga 4 ayat pendek sahaja, jangan meleret).
+- Fokus pada memberi kata-kata motivasi, semangat belajar, persediaan umum menghadapi SPM (pengurusan masa, kurangkan stres, keyakinan diri) dan penerangan ringkas istilah asas sahaja. JANGAN beri teknik atau formula menjawab soalan peperiksaan.
+- Bercakap secara santai, natural, sekali-sekala selitkan humor ringan atau frasa Bahasa Inggeris yang ringkas macam cikgu sebenar berbual dengan anak murid.
+- Gunakan emoji yang sesuai dengan suasana.
+- PENTING: Jika pelajar tanya perkara di luar pengetahuan anda, urusan peribadi/markah sebenar, atau soalan yang memerlukan bantuan lanjut daripada cikgu sebenar, balas dengan santai dan sertakan ayat wajib ini: "Sila WhatsApp saya, jangan malu jangan segan!"`;
+
+            cikguChatHistory.push({ role: "user", parts: [{ text: userMessage }] });
+
+            for (let attempt = 0; attempt < 3; attempt++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            systemInstruction: { parts: [{ text: systemPrompt }] },
+                            contents: cikguChatHistory.slice(-8)
+                        })
+                    });
+
+                    if (!response.ok) throw new Error("API status " + response.status);
+                    const data = await response.json();
+                    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+                    if (!reply) throw new Error("Empty reply");
+
+                    cikguChatHistory.push({ role: "model", parts: [{ text: reply }] });
+                    return reply;
+                } catch (err) {
+                    if (attempt < 2) {
+                        await new Promise(r => setTimeout(r, 1000 * Math.pow(2, attempt)));
+                    }
+                }
+            }
+
+            const lower = userMessage.toLowerCase();
+            const pickRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+            if (lower.includes('hai') || lower.includes('hello') || lower.includes('assalamualaikum') || lower.includes('salam')) {
+                return pickRandom([
+                    "Waalaikumussalam & hai! 👋 Semangat hari ni? Nak cikgu bagi kata motivasi atau nak tanya topik Perniagaan SPM?",
+                    "Hai! 👋 Selamat datang ke portal PNGPOCKET. Apa khabar persediaan SPM hari ni? Steady je kan!",
+                    "Assalamualaikum! 😊 Cikgu Amer sedia membantu. Jom kongsi apa yang awak nak bualkan hari ni!"
+                ]);
+            }
+            if (lower.includes('semangat') || lower.includes('motivasi') || lower.includes('putus asa') || lower.includes('susah') || lower.includes('penat') || lower.includes('stres')) {
+                return pickRandom([
+                    "Steady! Perniagaan SPM ni kacang je bila awak dah faham konsep asas. Buat perlahan-lahan, cikgu yakin awak boleh skor A+ nanti! 💪🔥",
+                    "Tarik nafas dalam-dalam dulu! Penat tu tanda awak tengah berusaha. Rehat sekejap minum air, lepas tu kita sambung pecut sama-sama! 🚀",
+                    "Remember why you started! Sikit je lagi nak sampai garisan penamat SPM. Jangan mengalah sebelum berjuang, you got this! 🌟",
+                    "Biasalah bila belajar rasa mencabar, tapi orang yang konsisten sikit-sikit setiap hari itulah yang akan menang besar nanti. Semangat! 😎✨"
+                ]);
+            }
+            if (lower.includes('milikan tunggal') || lower.includes('perkongsian') || lower.includes('syarikat') || lower.includes('koperasi')) {
+                return pickRandom([
+                    "Bab pemilikan perniagaan ni memang best! Milikan tunggal dimiliki seorang pemilik, perkongsian pula 2 hingga 20 orang. Boleh semak Nota T4 & T5 kat atas untuk ringkasan penuh ya! 📘",
+                    "Konsep pemilikan perniagaan ni senang je nak ingat bila kita kaitkan dengan kedai-kedai di sekeliling kita. Cuba tengok nota ringkas dalam portal ni, confirm terus faham! 💡"
+                ]);
+            }
+            if (lower.includes('spm') || lower.includes('exam') || lower.includes('peperiksaan') || lower.includes('kertas')) {
+                return pickRandom([
+                    "Persediaan SPM paling penting ialah jaga kesihatan, tidur cukup dan ulangkaji secara konsisten. Jangan panik, cikgu sentiasa doakan kejayaan awak! 🙌",
+                    "Nak hadap SPM ni kena tenang dan yakin pada usaha sendiri. Buat latihan sikit-sikit setiap hari supaya otak sentiasa bersedia! 🔥"
+                ]);
+            }
+
+            return pickRandom([
+                "Soalan yang sangat bagus! Supaya cikgu dapat terangkan dengan lebih tepat ikut keperluan awak, Sila WhatsApp saya, jangan malu jangan segan! 😊📲",
+                "Menarik topik yang awak tanya ni! Untuk bimbingan lebih lanjut terus daripada cikgu, Sila WhatsApp saya, jangan malu jangan segan! 🙌💬",
+                "Cikgu suka semangat ingin tahu awak ni! Kalau nak bincang lebih mendalam pasal hal ni, Sila WhatsApp saya, jangan malu jangan segan! 😉✨"
+            ]);
+        }
+
+        async function processChatMessage(msg) {
+            if (!msg.trim()) return;
+            appendChatBubble('user', msg);
+            const typingBubble = appendChatBubble('bot', 'Cikgu Amer sedang menaip...');
+
+            const reply = await fetchCikguAmerReply(msg);
+            if (typingBubble) typingBubble.remove();
+            appendChatBubble('bot', reply);
+        }
+
+        function handleCikguChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('cikguChatInput');
+            if (!input || !input.value.trim()) return;
+            const msg = input.value.trim();
+            input.value = '';
+            processChatMessage(msg);
+        }
+
+        function sendQuickPrompt(promptText) {
+            const box = document.getElementById('cikguChatBox');
+            if (box && box.classList.contains('hidden')) {
+                box.classList.remove('hidden');
+            }
+            processChatMessage(promptText);
+        }
+
+        async function saveLiveGeminiKey() {
+            if (!ensureTeacherSession()) return;
+            const input = document.getElementById('geminiApiKeyInput');
+            const keyVal = input ? input.value.trim() : '';
+            localStorage.setItem('pngpocket_gemini_key', keyVal);
+            showBanner(keyVal ? "Kunci API Gemini AI berjaya disimpan untuk mod LIVE!" : "Kunci API dikosongkan.");
+            try {
+                if (db) {
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'ai'), { geminiKey: keyVal });
+                }
+            } catch (e) {}
+        }
+
+        // ==========================================
+        // 6. SEGERAK CLOUD & OPERASI CRUD
+        // ==========================================
+        async function syncAllToFirebaseCloud() {
+            if (!ensureTeacherSession()) return;
+            if (!db) {
+                showBanner("Pangkalan data Firebase belum sedia.", "error");
+                return;
+            }
+
+            try {
+                showBanner("Sedang menyegerakkan semua murid, bahan & markah ke Cloud...");
+                let syncedCount = 0;
+
+                for (const st of localStudents) {
+                    const docId = st.id && !st.id.startsWith('stud-') ? st.id : ('stud-' + st.name.replace(/[^A-Z0-9]/g, '_'));
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', docId), {
+                        name: st.name.toUpperCase(),
+                        pin: String(st.pin),
+                        createdAt: st.createdAt || new Date().toISOString()
+                    }, { merge: true });
+                    st.id = docId;
+                    syncedCount++;
+                }
+
+                for (const res of localResources) {
+                    const docId = res.id && !res.id.startsWith('res-') ? res.id : ('res-' + res.category + '-' + res.title.slice(0, 20).replace(/[^A-Za-z0-9]/g, '_'));
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'resources', docId), {
+                        category: res.category,
+                        title: res.title,
+                        desc: res.desc,
+                        url: res.url,
+                        schemaUrl: res.schemaUrl || '',
+                        createdAt: res.createdAt || new Date().toISOString()
+                    }, { merge: true });
+                    res.id = docId;
+                }
+
+                persistLocalState();
+                updateFirebaseStatusUI(true, `Berjaya disegerakkan (${syncedCount} murid kini aktif di awan untuk semua peranti pelajar).`);
+                showBanner(`Selesai! ${syncedCount} murid & semua bahan berjaya dimuat naik ke Firebase Cloud!`);
+            } catch (err) {
+                console.error("Ralat Sync Firebase:", err);
+                updateFirebaseStatusUI(false, `Gagal hantar ke Firebase (${err.code || err.message}). Sila semak Firebase Auth Authorized Domains & Firestore Rules.`);
+                showBanner(`Gagal segerak ke Firebase: ${err.code || err.message}`, "error");
+            }
+        }
+
+        function editResource(id) {
+            if (!ensureTeacherSession()) return;
+            const item = localResources.find(r => r.id === id);
+            if (!item) return;
+
+            document.getElementById('editResId').value = item.id;
+            document.getElementById('resCategory').value = item.category;
+            document.getElementById('resTitle').value = item.title;
+            document.getElementById('resDesc').value = item.desc;
+            document.getElementById('resUrl').value = item.url;
+            document.getElementById('resSchemaUrl').value = item.schemaUrl || '';
+
+            document.getElementById('resFormHeading').innerHTML = '<i class="fas fa-edit text-amber-500"></i> Kemaskini Bahan / Biz Game';
+            document.getElementById('resSubmitBtn').innerHTML = '<i class="fas fa-save mr-1.5"></i> Simpan Perubahan';
+            document.getElementById('cancelEditResBtn').classList.remove('hidden');
+            document.getElementById('addResourceForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetResourceForm() {
+            document.getElementById('addResourceForm').reset();
+            document.getElementById('editResId').value = '';
+            document.getElementById('resFormHeading').innerHTML = '<i class="fas fa-plus-circle text-indigo-600"></i> Tambah Nota / Latihan / Game';
+            document.getElementById('resSubmitBtn').innerHTML = '<i class="fas fa-cloud-upload-alt mr-1.5"></i> Terbitkan Bahan Sekarang';
+            document.getElementById('cancelEditResBtn').classList.add('hidden');
+        }
+
+        async function handleAddResource(e) {
+            e.preventDefault();
+            if (!ensureTeacherSession()) {
+                showBanner("Sila log masuk sebagai Guru terlebih dahulu.", "error");
+                return;
+            }
+
+            const safeUrl = sanitizeUrl(document.getElementById('resUrl').value);
+            if (!safeUrl) {
+                showBanner("Sila masukkan pautan URL yang sah (bermula dengan https://).", "error");
+                return;
+            }
+
+            const editId = document.getElementById('editResId').value;
+            const updatedFields = {
+                category: document.getElementById('resCategory').value,
+                title: document.getElementById('resTitle').value.trim(),
+                desc: document.getElementById('resDesc').value.trim(),
+                url: safeUrl,
+                schemaUrl: sanitizeUrl(document.getElementById('resSchemaUrl').value)
+            };
+
+            if (editId) {
+                const idx = localResources.findIndex(r => r.id === editId);
+                if (idx !== -1) {
+                    localResources[idx] = { ...localResources[idx], ...updatedFields };
+                    persistLocalState();
+                    renderAllData();
+                    resetResourceForm();
+                    showBanner("Bahan / Biz Game berjaya dikemaskini!", "success");
+                    try {
+                        if (db) await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'resources', editId), updatedFields, { merge: true });
+                    } catch (err) {}
+                }
+                return;
+            }
+
+            const newRes = {
+                id: 'res-' + Date.now(),
+                ...updatedFields,
+                createdAt: new Date().toISOString()
+            };
+
+            localResources.unshift(newRes);
+            persistLocalState();
+            renderAllData();
+            resetResourceForm();
+            showBanner("Bahan / Biz Game baharu berjaya diterbitkan!", "success");
+
+            try {
+                if (db) {
+                    const { id, ...payload } = newRes;
+                    const docRef = await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'resources'), payload);
+                    newRes.id = docRef.id;
+                    persistLocalState();
+                }
+            } catch (err) {}
+        }
+
+        async function handleDeleteResource(id) {
+            if (!ensureTeacherSession()) return;
+            localResources = localResources.filter(r => r.id !== id);
+            persistLocalState();
+            renderAllData();
+            showBanner("Bahan telah dipadam.");
+            try {
+                if (db) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'resources', id));
+            } catch (err) {}
+        }
+
+        async function handleAddStudent(e) {
+            e.preventDefault();
+            if (!ensureTeacherSession()) return;
+
+            const name = document.getElementById('studName').value.trim().toUpperCase();
+            const pin = document.getElementById('studPin').value.trim();
+
+            if (!name || !/^\d{4}$/.test(pin)) {
+                showBanner("Sila masukkan nama murid dan 4 digit PIN nombor.", "error");
+                return;
+            }
+
+            const exists = [...localStudents, ...SENARAI_MURID_TETAP].some(s => s.name.toUpperCase() === name);
+            if (exists) {
+                showBanner("Nama murid ini sudah berdaftar dalam sistem.", "error");
+                return;
+            }
+
+            const newStud = {
+                id: 'stud-' + Date.now(),
+                name,
+                pin,
+                createdAt: new Date().toISOString()
+            };
+
+            localStudents.unshift(newStud);
+            persistLocalState();
+            renderAllData();
+            document.getElementById('addStudentForm').reset();
+
+            try {
+                if (db) {
+                    const { id, ...payload } = newStud;
+                    const docRef = await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'students'), payload);
+                    newStud.id = docRef.id;
+                    persistLocalState();
+                    showBanner(`Murid ${name} berjaya didaftarkan ke Cloud!`);
+                } else {
+                    showBanner(`Murid ${name} disimpan secara lokal.`);
+                }
+            } catch (err) {
+                showBanner(`Murid ${name} disimpan secara lokal, tetapi gagal hantar ke Cloud (${err.code || 'Ralat Firebase'}).`, "error");
+            }
+        }
+
+        async function handleDeleteStudent(id) {
+            if (!ensureTeacherSession()) return;
+            localStudents = localStudents.filter(s => s.id !== id);
+            persistLocalState();
+            renderAllData();
+            showBanner("Rekod murid telah dipadam.");
+            try {
+                if (db) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', id));
+            } catch (err) {}
+        }
+
+        async function handleBulkAddStudents(e) {
+            e.preventDefault();
+            if (!ensureTeacherSession()) return;
+            const rawText = document.getElementById('bulkStudentsInput').value.trim();
+            if (!rawText) return;
+
+            const lines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+            let addedCount = 0;
+            let cloudFailed = false;
+
+            for (const line of lines) {
+                const parts = line.split(/[,|\t-]+/).map(p => p.trim()).filter(Boolean);
+                const name = (parts[0] || '').toUpperCase();
+                const pin = (parts[1] && /^\d{4}$/.test(parts[1])) ? parts[1] : '1234';
+                if (!name) continue;
+
+                const exists = [...localStudents, ...SENARAI_MURID_TETAP].some(s => s.name.toUpperCase() === name);
+                if (exists) continue;
+
+                const newStud = {
+                    id: 'stud-' + Date.now() + '-' + Math.floor(Math.random() * 10000),
+                    name,
+                    pin,
+                    createdAt: new Date().toISOString()
+                };
+                localStudents.unshift(newStud);
+                addedCount++;
+
+                try {
+                    if (db) {
+                        const { id, ...payload } = newStud;
+                        const docRef = await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'students'), payload);
+                        newStud.id = docRef.id;
+                    }
+                } catch (err) {
+                    cloudFailed = true;
+                }
+            }
+
+            persistLocalState();
+            renderAllData();
+            document.getElementById('bulkStudentsInput').value = '';
+            if (cloudFailed) {
+                showBanner(`${addedCount} murid disimpan secara lokal, tetapi gagal segerak ke Cloud. Sila semak tetapan Firebase.`, "error");
+            } else {
+                showBanner(`${addedCount} murid baharu berjaya didaftarkan ke Cloud!`);
+            }
+        }
+
+        function exportBackupData() {
+            if (!ensureTeacherSession()) return;
+            const backupPayload = {
+                exportedAt: new Date().toISOString(),
+                portal: "PNGPOCKET-SPM",
+                resources: localResources,
+                students: localStudents,
+                submissions: localSubmissions
+            };
+            const blob = new Blob([JSON.stringify(backupPayload, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `PNGPOCKET_Backup_${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showBanner("Fail sandaran (.json) berjaya dimuat turun!");
+        }
+
+        async function importBackupData(e) {
+            if (!ensureTeacherSession()) return;
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async (ev) => {
+                try {
+                    const parsed = JSON.parse(ev.target.result);
+                    if (Array.isArray(parsed.resources)) localResources = parsed.resources;
+                    if (Array.isArray(parsed.students)) localStudents = parsed.students;
+                    if (Array.isArray(parsed.submissions)) localSubmissions = parsed.submissions;
+                    persistLocalState();
+                    renderAllData();
+                    showBanner("Semua data berjaya dipulihkan! Tekan 'Segerak Semua ke Cloud' untuk kemaskini telefon pelajar.");
+                } catch (err) {
+                    showBanner("Fail sandaran tidak sah atau rosak.", "error");
+                }
+                e.target.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        function openSubmitMarksModal(exerciseId, exerciseTitle) {
+            if (!currentUser || currentUser.role !== 'student') {
+                showBanner("Sila log masuk sebagai Murid untuk menghantar markah.", "error");
+                openLoginModal();
+                return;
+            }
+            document.getElementById('subExerciseId').value = exerciseId;
+            document.getElementById('subModalExerciseTitle').textContent = exerciseTitle;
+            document.getElementById('submitMarksForm').reset();
+            document.getElementById('submitMarksModal').classList.remove('hidden');
+        }
+
+        function closeSubmitMarksModal() {
+            document.getElementById('submitMarksModal').classList.add('hidden');
+        }
+
+        function compressImageToDataUrl(file) {
+            return new Promise((resolve) => {
+                if (!file) return resolve('');
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const maxW = 700;
+                        const scale = img.width > maxW ? maxW / img.width : 1;
+                        canvas.width = img.width * scale;
+                        canvas.height = img.height * scale;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.72));
+                    };
+                    img.onerror = () => resolve('');
+                    img.src = ev.target.result;
+                };
+                reader.onerror = () => resolve('');
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function handleSaveSubmission(e) {
+            e.preventDefault();
+            if (!currentUser || currentUser.role !== 'student') return;
+
+            const exerciseId = document.getElementById('subExerciseId').value;
+            const exerciseTitle = document.getElementById('subModalExerciseTitle').textContent;
+            const score = document.getElementById('subScore').value.trim();
+            const proofNote = document.getElementById('subProofUrl').value.trim();
+            const fileInput = document.getElementById('subScreenshotFile');
+            const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+            const screenshotData = await compressImageToDataUrl(file);
+
+            const newSub = {
+                id: 'sub-' + Date.now(),
+                studentName: currentUser.name,
+                exerciseId,
+                exerciseTitle,
+                score,
+                proofNote,
+                screenshotData,
+                submittedAt: new Date().toLocaleString('ms-MY')
+            };
+
+            localSubmissions.unshift(newSub);
+            persistLocalState();
+            closeSubmitMarksModal();
+            renderAllData();
+            showBanner("Markah & bukti screenshot berjaya dihantar kepada Cikgu Amer!");
+
+            try {
+                if (db) {
+                    const { id, screenshotData: _omitLargeImg, ...cloudPayload } = newSub;
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'), cloudPayload);
+                }
+            } catch (err) {}
+        }
+
+        function openViewProofModal(studentName, exerciseTitle, imgSrc) {
+            document.getElementById('proofModalStudentName').textContent = studentName;
+            document.getElementById('proofModalExercise').textContent = exerciseTitle;
+            document.getElementById('proofModalImg').src = imgSrc;
+            document.getElementById('viewProofModal').classList.remove('hidden');
+        }
+
+        function closeViewProofModal() {
+            document.getElementById('viewProofModal').classList.add('hidden');
+        }
+
+        // ==========================================
+        // 6B. BAHAGIAN 1: LIVE CHAT KELAS & BAHAGIAN 2: PESANAN ANDA
+        // ==========================================
+        async function handlePostLiveWallMessage(e) {
+            e.preventDefault();
+            if (!currentUser) {
+                showBanner("Sila log masuk sebagai Murid atau Guru untuk menghantar mesej live!", "error");
+                openLoginModal();
+                return;
+            }
+
+            const input = document.getElementById('liveWallInput');
+            const text = input ? input.value.trim() : '';
+            if (!text) return;
+
+            const now = new Date();
+            const newMsg = {
+                id: 'msg-' + Date.now(),
+                senderName: currentUser.name,
+                senderRole: currentUser.role,
+                message: text,
+                createdAt: now.toISOString(),
+                displayTime: now.toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' }) + ', ' + now.toLocaleDateString('ms-MY', { day: '2-digit', month: 'short' })
+            };
+
+            localLiveMessages.push(newMsg);
+            if (localLiveMessages.length > 80) localLiveMessages = localLiveMessages.slice(-80);
+            persistLocalState();
+            input.value = '';
+            renderLiveWall();
+
+            try {
+                if (db) {
+                    const { id, ...payload } = newMsg;
+                    const docRef = await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'live_wall'), payload);
+                    newMsg.id = docRef.id;
+                    persistLocalState();
+                }
+            } catch (err) {
+                showBanner("Mesej dipaparkan secara lokal (sambungan awan terhad).", "error");
+            }
+        }
+
+        async function handleDeleteLiveWallMessage(msgId) {
+            if (!ensureTeacherSession()) return;
+            localLiveMessages = localLiveMessages.filter(m => m.id !== msgId);
+            persistLocalState();
+            renderLiveWall();
+            showBanner("Mesej Live Chat telah dipadam oleh Guru.");
+            try {
+                if (db) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'live_wall', msgId));
+            } catch (err) {}
+        }
+
+        async function handlePostPesananMessage(e) {
+            e.preventDefault();
+            if (!currentUser) {
+                showBanner("Sila log masuk sebagai Murid atau Guru untuk menampal pesanan anda!", "error");
+                openLoginModal();
+                return;
+            }
+
+            const input = document.getElementById('pesananInput');
+            const text = input ? input.value.trim() : '';
+            if (!text) return;
+
+            const now = new Date();
+            const newPesanan = {
+                id: 'psn-' + Date.now(),
+                senderName: currentUser.name,
+                senderRole: currentUser.role,
+                message: text,
+                createdAt: now.toISOString(),
+                displayTime: now.toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' }) + ', ' + now.toLocaleDateString('ms-MY', { day: '2-digit', month: 'short' })
+            };
+
+            localPesananList.unshift(newPesanan);
+            if (localPesananList.length > 60) localPesananList = localPesananList.slice(0, 60);
+            persistLocalState();
+            input.value = '';
+            renderPesananAnda();
+            showBanner("Pesanan anda berjaya ditampal secara live!");
+
+            try {
+                if (db) {
+                    const { id, ...payload } = newPesanan;
+                    const docRef = await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'pesanan_anda'), payload);
+                    newPesanan.id = docRef.id;
+                    persistLocalState();
+                }
+            } catch (err) {}
+        }
+
+        async function handleDeletePesananMessage(psnId) {
+            if (!ensureTeacherSession()) return;
+            localPesananList = localPesananList.filter(p => p.id !== psnId);
+            persistLocalState();
+            renderPesananAnda();
+            showBanner("Pesanan telah dipadam oleh Guru.");
+            try {
+                if (db) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'pesanan_anda', psnId));
+            } catch (err) {}
+        }
+
+        function renderLiveWall() {
+            const listEl = document.getElementById('liveStudentWallList');
+            const countEl = document.getElementById('liveChatCountBadge');
+            if (!listEl) return;
+
+            const sorted = [...localLiveMessages].sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
+            if (countEl) countEl.textContent = `${sorted.length} Mesej`;
+
+            listEl.innerHTML = '';
+            if (sorted.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'text-center text-xs text-slate-400 py-10';
+                empty.textContent = 'Belum ada mesej live chat. Mulakan perbualan sekarang!';
+                listEl.appendChild(empty);
+                return;
+            }
+
+            const isTeacher = currentUser && currentUser.role === 'teacher';
+
+            sorted.forEach(item => {
+                const isMsgTeacher = item.senderRole === 'teacher';
+                const row = document.createElement('div');
+                row.className = isMsgTeacher
+                    ? 'p-3 rounded-2xl bg-indigo-50 border border-indigo-200 shadow-sm flex items-start justify-between gap-2.5'
+                    : 'p-3 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-start justify-between gap-2.5';
+
+                const left = document.createElement('div');
+                left.className = 'flex items-start gap-2.5 min-w-0 flex-1';
+
+                const avatar = document.createElement('div');
+                avatar.className = isMsgTeacher
+                    ? 'w-8 h-8 rounded-xl bg-indigo-600 text-white font-extrabold text-[11px] flex items-center justify-center shrink-0'
+                    : 'w-8 h-8 rounded-xl bg-blue-100 text-blue-700 font-extrabold text-[11px] flex items-center justify-center shrink-0';
+                avatar.textContent = (item.senderName || 'P').slice(0, 2).toUpperCase();
+
+                const body = document.createElement('div');
+                body.className = 'min-w-0 flex-1';
+
+                const meta = document.createElement('div');
+                meta.className = 'flex items-center gap-1.5 flex-wrap';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = isMsgTeacher
+                    ? 'text-[11px] font-extrabold text-indigo-800'
+                    : 'text-[11px] font-extrabold text-slate-900';
+                nameSpan.textContent = item.senderName;
+                meta.appendChild(nameSpan);
+
+                if (isMsgTeacher) {
+                    const roleBadge = document.createElement('span');
+                    roleBadge.className = 'px-1.5 py-0.5 rounded-full bg-indigo-600 text-white text-[9px] font-extrabold uppercase';
+                    roleBadge.textContent = 'GURU';
+                    meta.appendChild(roleBadge);
+                }
+
+                const timeSpan = document.createElement('span');
+                timeSpan.className = 'text-[10px] font-medium text-slate-400';
+                timeSpan.textContent = item.displayTime || '';
+                meta.appendChild(timeSpan);
+
+                const msgP = document.createElement('p');
+                msgP.className = 'text-xs text-slate-700 mt-1 break-words leading-relaxed';
+                msgP.textContent = item.message;
+
+                body.append(meta, msgP);
+                left.append(avatar, body);
+                row.appendChild(left);
+
+                if (isTeacher) {
+                    const delBtn = document.createElement('button');
+                    delBtn.type = 'button';
+                    delBtn.title = 'Padam Mesej';
+                    delBtn.className = 'px-2 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 text-[10px] font-bold shrink-0 transition';
+                    delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                    delBtn.addEventListener('click', () => handleDeleteLiveWallMessage(item.id));
+                    row.appendChild(delBtn);
+                }
+
+                listEl.appendChild(row);
+            });
+
+            listEl.scrollTop = listEl.scrollHeight;
+        }
+
+        function renderPesananAnda() {
+            const listEl = document.getElementById('pesananAndaList');
+            const countEl = document.getElementById('pesananCountBadge');
+            if (!listEl) return;
+
+            const sorted = [...localPesananList].sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+            if (countEl) countEl.textContent = `${sorted.length} Pesanan`;
+
+            listEl.innerHTML = '';
+            if (sorted.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'col-span-full text-center text-xs font-bold text-amber-950 bg-white/85 rounded-xl py-8 px-4 shadow-sm';
+                empty.textContent = 'Papan notis masih kosong. Jadilah yang pertama menampal kertas pesanan anda!';
+                listEl.appendChild(empty);
+                return;
+            }
+
+            const isTeacher = currentUser && currentUser.role === 'teacher';
+            const stickyColors = [
+                { bg: 'bg-yellow-100 border-yellow-300', pin: 'bg-rose-500', tilt: '-rotate-1' },
+                { bg: 'bg-pink-100 border-pink-300', pin: 'bg-indigo-600', tilt: 'rotate-1' },
+                { bg: 'bg-sky-100 border-sky-300', pin: 'bg-amber-500', tilt: '-rotate-1' },
+                { bg: 'bg-emerald-100 border-emerald-300', pin: 'bg-purple-600', tilt: 'rotate-1' }
+            ];
+
+            sorted.forEach((item, idx) => {
+                const isMsgTeacher = item.senderRole === 'teacher';
+                const theme = isMsgTeacher
+                    ? { bg: 'bg-amber-200 border-amber-400', pin: 'bg-red-600', tilt: 'rotate-0' }
+                    : stickyColors[idx % stickyColors.length];
+
+                const card = document.createElement('div');
+                card.className = `relative pt-5 pb-3.5 px-3.5 rounded-sm border shadow-md hover:shadow-lg hover:rotate-0 transition-all duration-200 flex flex-col justify-between min-h-[120px] ${theme.bg} ${theme.tilt}`;
+
+                // Pin Papan Notis di bahagian atas tengah kertas
+                const pin = document.createElement('div');
+                pin.className = `w-3.5 h-3.5 rounded-full ${theme.pin} border-2 border-white shadow-md absolute top-1.5 left-1/2 -translate-x-1/2`;
+                card.appendChild(pin);
+
+                const quoteP = document.createElement('p');
+                quoteP.className = 'text-xs font-semibold text-slate-800 break-words leading-relaxed italic';
+                quoteP.textContent = `"${item.message}"`;
+
+                const footer = document.createElement('div');
+                footer.className = 'mt-3 pt-2 border-t border-black/10 flex items-end justify-between gap-1.5';
+
+                const authorBox = document.createElement('div');
+                authorBox.className = 'min-w-0';
+
+                const bySpan = document.createElement('div');
+                bySpan.className = isMsgTeacher
+                    ? 'text-[11px] font-extrabold text-amber-950 truncate'
+                    : 'text-[11px] font-extrabold text-slate-900 truncate';
+                bySpan.textContent = `- ${item.senderName}`;
+                authorBox.appendChild(bySpan);
+
+                const metaLine = document.createElement('div');
+                metaLine.className = 'flex items-center gap-1 mt-0.5';
+
+                if (isMsgTeacher) {
+                    const roleBadge = document.createElement('span');
+                    roleBadge.className = 'px-1.5 py-0.2 rounded bg-amber-700 text-white text-[8px] font-extrabold uppercase';
+                    roleBadge.textContent = 'GURU';
+                    metaLine.appendChild(roleBadge);
+                }
+
+                const timeSpan = document.createElement('span');
+                timeSpan.className = 'text-[9px] font-semibold text-slate-600';
+                timeSpan.textContent = item.displayTime || '';
+                metaLine.appendChild(timeSpan);
+                authorBox.appendChild(metaLine);
+
+                footer.appendChild(authorBox);
+
+                if (isTeacher) {
+                    const delBtn = document.createElement('button');
+                    delBtn.type = 'button';
+                    delBtn.title = 'Tanggalkan Kertas Notis';
+                    delBtn.className = 'w-6 h-6 rounded-md bg-white/80 hover:bg-rose-500 text-rose-700 hover:text-white text-[10px] font-bold shrink-0 transition flex items-center justify-center shadow-sm';
+                    delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                    delBtn.addEventListener('click', () => handleDeletePesananMessage(item.id));
+                    footer.appendChild(delBtn);
+                }
+
+                card.append(quoteP, footer);
+                listEl.appendChild(card);
+            });
+        }
+
+        // ==========================================
+        // 7. RENDER PAPARAN (SELAMAT TANPA XSS)
+        // ==========================================
+        function renderAllData() {
+            renderLiveWall();
+            renderPesananAnda();
+            const categories = ['nota', 'latihan', 'kertas2', 'soalan', 'bizgame'];
+            categories.forEach(cat => {
+                const grid = document.getElementById('grid-' + cat);
+                if (!grid) return;
+                grid.innerHTML = '';
+
+                const items = localResources.filter(r => r.category === cat);
+                if (items.length === 0) {
+                    const empty = document.createElement('div');
+                    empty.className = 'col-span-full pocket-card p-8 border-dashed text-center text-sm text-slate-500';
+                    empty.textContent = cat === 'bizgame'
+                        ? 'Belum ada permainan Wayground ditambah oleh guru.'
+                        : 'Belum ada bahan diterbitkan dalam kategori ini.';
+                    grid.appendChild(empty);
+                    return;
+                }
+
+                items.forEach(res => {
+                    const card = document.createElement('div');
+                    card.className = 'pocket-card p-6 flex flex-col justify-between';
+
+                    const top = document.createElement('div');
+                    const titleEl = document.createElement('h4');
+                    titleEl.className = 'font-extrabold text-slate-900 text-base leading-snug';
+                    titleEl.textContent = res.title;
+
+                    const descEl = document.createElement('p');
+                    descEl.className = 'text-xs text-slate-500 mt-2 leading-relaxed';
+                    descEl.textContent = res.desc;
+
+                    top.append(titleEl, descEl);
+
+                    const actions = document.createElement('div');
+                    actions.className = 'mt-5 pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2';
+
+                    const safeMainUrl = sanitizeUrl(res.url);
+                    if (safeMainUrl) {
+                        const linkBtn = document.createElement('a');
+                        linkBtn.href = safeMainUrl;
+                        linkBtn.target = '_blank';
+                        linkBtn.rel = 'noopener noreferrer';
+                        if (cat === 'bizgame') {
+                            linkBtn.className = 'flex-1 text-center px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-orange-500 hover:from-rose-700 hover:to-orange-600 text-white text-xs font-extrabold shadow-sm transition flex items-center justify-center gap-1.5';
+                            linkBtn.innerHTML = '<i class="fas fa-play"></i> Main Game Wayground';
+                        } else {
+                            linkBtn.className = 'flex-1 text-center px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs font-extrabold shadow-sm transition';
+                            linkBtn.textContent = cat === 'latihan' ? 'Jawab Latihan' : 'Buka Bahan';
+                        }
+                        actions.appendChild(linkBtn);
+                    }
+
+                    const safeSchema = sanitizeUrl(res.schemaUrl);
+                    if (safeSchema) {
+                        const schemaBtn = document.createElement('a');
+                        schemaBtn.href = safeSchema;
+                        schemaBtn.target = '_blank';
+                        schemaBtn.rel = 'noopener noreferrer';
+                        schemaBtn.className = 'px-3.5 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-extrabold transition';
+                        schemaBtn.textContent = 'Skema';
+                        actions.appendChild(schemaBtn);
+                    }
+
+                    if (cat === 'latihan') {
+                        const submitBtn = document.createElement('button');
+                        submitBtn.type = 'button';
+                        submitBtn.className = 'px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-sm transition';
+                        submitBtn.innerHTML = '<i class="fas fa-check-double mr-1"></i> Hantar Markah';
+                        submitBtn.addEventListener('click', () => openSubmitMarksModal(res.id, res.title));
+                        actions.appendChild(submitBtn);
+                    }
+
+                    card.append(top, actions);
+                    grid.appendChild(card);
+                });
+            });
+
+            // Update Home & Admin Stats
+            const allStudents = [...localStudents, ...SENARAI_MURID_TETAP.map(s => ({ ...s, fixed: true }))];
+            document.getElementById('statNotaCount').textContent = `${localResources.filter(r => r.category === 'nota').length} Bahan Tersedia`;
+            document.getElementById('statLatihanCount').textContent = `${localResources.filter(r => r.category === 'latihan').length} Set Latihan`;
+            document.getElementById('statK2Count').textContent = `${localResources.filter(r => r.category === 'kertas2').length} Modul K2`;
+            const statGameEl = document.getElementById('statBizGameCount');
+            if (statGameEl) statGameEl.textContent = `${localResources.filter(r => r.category === 'bizgame').length} Permainan`;
+
+            document.getElementById('adminTotalStudents').textContent = allStudents.length;
+            document.getElementById('adminTotalResources').textContent = localResources.length;
+            document.getElementById('adminTotalSubmissions').textContent = localSubmissions.length;
+
+            // Render Admin Resource List
+            const adminResList = document.getElementById('adminResourceList');
+            adminResList.innerHTML = '';
+            localResources.forEach(res => {
+                const row = document.createElement('div');
+                row.className = 'p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3';
+
+                const info = document.createElement('div');
+                const badge = document.createElement('span');
+                badge.className = res.category === 'bizgame'
+                    ? 'text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-rose-100 text-rose-700'
+                    : 'text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-indigo-100 text-indigo-700';
+                badge.textContent = res.category === 'bizgame' ? 'BIZ GAME' : res.category;
+
+                const t = document.createElement('div');
+                t.className = 'text-xs font-extrabold text-slate-800 mt-1';
+                t.textContent = res.title;
+
+                info.append(badge, t);
+
+                const btnGroup = document.createElement('div');
+                btnGroup.className = 'flex items-center gap-1.5 shrink-0';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'px-2.5 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs font-bold transition';
+                editBtn.title = 'Ubahsuai Bahan';
+                editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                editBtn.addEventListener('click', () => editResource(res.id));
+
+                const delBtn = document.createElement('button');
+                delBtn.className = 'px-2.5 py-1.5 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold transition';
+                delBtn.title = 'Padam Bahan';
+                delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                delBtn.addEventListener('click', () => handleDeleteResource(res.id));
+
+                btnGroup.append(editBtn, delBtn);
+                row.append(info, btnGroup);
+                adminResList.appendChild(row);
+            });
+
+            // Render Admin Student List
+            const adminStudList = document.getElementById('adminStudentList');
+            adminStudList.innerHTML = '';
+            allStudents.forEach(st => {
+                const card = document.createElement('div');
+                card.className = 'p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-2';
+
+                const left = document.createElement('div');
+                const n = document.createElement('div');
+                n.className = 'text-xs font-extrabold text-slate-900';
+                n.textContent = st.name;
+
+                const p = document.createElement('div');
+                p.className = 'text-[11px] font-bold text-indigo-600 mt-0.5';
+                p.textContent = `PIN: ${st.pin}`;
+
+                left.append(n, p);
+                card.appendChild(left);
+
+                if (!st.fixed) {
+                    const delBtn = document.createElement('button');
+                    delBtn.className = 'px-2.5 py-1.5 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold transition';
+                    delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                    delBtn.addEventListener('click', () => handleDeleteStudent(st.id));
+                    card.appendChild(delBtn);
+                }
+                adminStudList.appendChild(card);
+            });
+
+            // Render Submissions Filter & Summary
+            const filterSelect = document.getElementById('filterExerciseSelect');
+            const currentFilter = filterSelect.value || 'ALL';
+            const exercises = localResources.filter(r => r.category === 'latihan');
+            filterSelect.innerHTML = '<option value="ALL">Semua Latihan</option>';
+            exercises.forEach(ex => {
+                const opt = document.createElement('option');
+                opt.value = ex.id;
+                opt.textContent = ex.title;
+                if (ex.id === currentFilter) opt.selected = true;
+                filterSelect.appendChild(opt);
+            });
+
+            const filteredSubs = currentFilter === 'ALL'
+                ? localSubmissions
+                : localSubmissions.filter(s => s.exerciseId === currentFilter);
+
+            const statusGrid = document.getElementById('studentStatusSummary');
+            statusGrid.innerHTML = '';
+            allStudents.forEach(st => {
+                const hasSubmitted = filteredSubs.some(sub => sub.studentName.toUpperCase() === st.name.toUpperCase());
+                const box = document.createElement('div');
+                box.className = hasSubmitted
+                    ? 'p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between gap-2'
+                    : 'p-3 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-between gap-2';
+
+                const nameEl = document.createElement('span');
+                nameEl.className = 'text-xs font-extrabold text-slate-800 truncate';
+                nameEl.textContent = st.name;
+
+                const statusBadge = document.createElement('span');
+                statusBadge.className = hasSubmitted
+                    ? 'text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-600 text-white shrink-0'
+                    : 'text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-600 text-white shrink-0';
+                statusBadge.textContent = hasSubmitted ? 'Sudah Hantar' : 'Belum Hantar';
+
+                box.append(nameEl, statusBadge);
+                statusGrid.appendChild(box);
+            });
+
+            const tbody = document.getElementById('adminSubmissionsTable');
+            tbody.innerHTML = '';
+            if (filteredSubs.length === 0) {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.colSpan = 5;
+                td.className = 'p-6 text-center text-slate-400 font-semibold';
+                td.textContent = 'Belum ada rekod penghantaran markah.';
+                tr.appendChild(td);
+                tbody.appendChild(tr);
+            } else {
+                filteredSubs.forEach(sub => {
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-slate-50';
+
+                    const tdName = document.createElement('td');
+                    tdName.className = 'p-3 font-extrabold text-slate-900';
+                    tdName.textContent = sub.studentName;
+
+                    const tdEx = document.createElement('td');
+                    tdEx.className = 'p-3 text-slate-700 font-semibold';
+                    tdEx.textContent = sub.exerciseTitle;
+
+                    const tdScore = document.createElement('td');
+                    tdScore.className = 'p-3';
+                    const scorePill = document.createElement('span');
+                    scorePill.className = 'px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-extrabold';
+                    scorePill.textContent = sub.score;
+                    tdScore.appendChild(scorePill);
+
+                    const tdProof = document.createElement('td');
+                    tdProof.className = 'p-3 space-y-1';
+                    if (sub.screenshotData) {
+                        const viewBtn = document.createElement('button');
+                        viewBtn.type = 'button';
+                        viewBtn.className = 'px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-extrabold inline-flex items-center gap-1';
+                        viewBtn.innerHTML = '<i class="fas fa-image"></i> Lihat Screenshot';
+                        viewBtn.addEventListener('click', () => openViewProofModal(sub.studentName, sub.exerciseTitle, sub.screenshotData));
+                        tdProof.appendChild(viewBtn);
+                    }
+                    if (sub.proofNote) {
+                        const noteSpan = document.createElement('div');
+                        noteSpan.className = 'text-[11px] text-slate-600';
+                        noteSpan.textContent = sub.proofNote;
+                        tdProof.appendChild(noteSpan);
+                    }
+                    if (!sub.screenshotData && !sub.proofNote) {
+                        tdProof.textContent = '-';
+                    }
+
+                    const tdTime = document.createElement('td');
+                    tdTime.className = 'p-3 text-slate-500';
+                    tdTime.textContent = sub.submittedAt;
+
+                    tr.append(tdName, tdEx, tdScore, tdProof, tdTime);
+                    tbody.appendChild(tr);
+                });
+            }
+        }
+
+        // ==========================================
+        // 8. DEDAHKAN FUNGSI KE WINDOW & INIT
+        // ==========================================
+        window.navigateTo = navigateTo;
+        window.nextMotivation = nextMotivation;
+        window.openLoginModal = openLoginModal;
+        window.closeLoginModal = closeLoginModal;
+        window.setLoginRole = setLoginRole;
+        window.handleStudentLogin = handleStudentLogin;
+        window.handleTeacherLogin = handleTeacherLogin;
+        window.handleLogout = handleLogout;
+        window.switchAdminTab = switchAdminTab;
+        window.toggleCikguChat = toggleCikguChat;
+        window.handleCikguChatSubmit = handleCikguChatSubmit;
+        window.sendQuickPrompt = sendQuickPrompt;
+        window.saveLiveGeminiKey = saveLiveGeminiKey;
+        window.syncAllToFirebaseCloud = syncAllToFirebaseCloud;
+        window.handleAddResource = handleAddResource;
+        window.editResource = editResource;
+        window.resetResourceForm = resetResourceForm;
+        window.handleDeleteResource = handleDeleteResource;
+        window.handleAddStudent = handleAddStudent;
+        window.handleDeleteStudent = handleDeleteStudent;
+        window.handleBulkAddStudents = handleBulkAddStudents;
+        window.exportBackupData = exportBackupData;
+        window.importBackupData = importBackupData;
+        window.openSubmitMarksModal = openSubmitMarksModal;
+        window.closeSubmitMarksModal = closeSubmitMarksModal;
+        window.handleSaveSubmission = handleSaveSubmission;
+        window.openViewProofModal = openViewProofModal;
+        window.closeViewProofModal = closeViewProofModal;
+        window.handlePostLiveWallMessage = handlePostLiveWallMessage;
+        window.handleDeleteLiveWallMessage = handleDeleteLiveWallMessage;
+        window.handlePostPesananMessage = handlePostPesananMessage;
+        window.handleDeletePesananMessage = handleDeletePesananMessage;
+        window.renderAllData = renderAllData;
+
+        // Mulakan aplikasi serta-merta
+        loadLocalState();
+        nextMotivation();
+        updateAuthUI();
+        navigateTo('home');
+        setInterval(nextMotivation, 600000);
+
+        const savedKeyEl = document.getElementById('geminiApiKeyInput');
+        if (savedKeyEl) savedKeyEl.value = localStorage.getItem('pngpocket_gemini_key') || LIVE_GEMINI_API_KEY || '';
+
+        // Sambung Firebase Firestore secara latar belakang dengan laporan ralat jelas
+        try {
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            db = getFirestore(app);
+
+            const attachFirestoreListeners = () => {
+                onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'ai'), (snap) => {
+                    updateFirebaseStatusUI(true);
+                    if (snap.exists() && snap.data().geminiKey) {
+                        localStorage.setItem('pngpocket_gemini_key', snap.data().geminiKey);
+                        const el = document.getElementById('geminiApiKeyInput');
+                        if (el) el.value = snap.data().geminiKey;
+                    }
+                }, (err) => {
+                    updateFirebaseStatusUI(false, `Firestore Rules menyekat akses (${err.code}). Tukar rules kepada 'allow read, write: if true;' di Firebase Console.`);
+                });
+
+                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'resources'), (snap) => {
+                    updateFirebaseStatusUI(true);
+                    if (!snap.empty) {
+                        const cloudRes = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                        const mergedMap = new Map();
+                        localResources.forEach(item => mergedMap.set(item.title + '|' + item.category, item));
+                        cloudRes.forEach(item => mergedMap.set(item.title + '|' + item.category, item));
+                        localResources = Array.from(mergedMap.values());
+                        persistLocalState();
+                        renderAllData();
+                    }
+                });
+
+                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'students'), (snap) => {
+                    updateFirebaseStatusUI(true);
+                    if (!snap.empty) {
+                        const cloudStuds = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                        const mergedMap = new Map();
+                        localStudents.forEach(s => mergedMap.set(s.name.toUpperCase(), s));
+                        cloudStuds.forEach(s => mergedMap.set(s.name.toUpperCase(), s));
+                        localStudents = Array.from(mergedMap.values());
+                        persistLocalState();
+                        renderAllData();
+                    }
+                });
+
+                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'), (snap) => {
+                    updateFirebaseStatusUI(true);
+                    if (!snap.empty) {
+                        const cloudSubs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                        const mergedSubsMap = new Map();
+                        localSubmissions.forEach(ls => mergedSubsMap.set(ls.studentName + '|' + ls.exerciseId + '|' + ls.submittedAt, ls));
+                        cloudSubs.forEach(cs => {
+                            const key = cs.studentName + '|' + cs.exerciseId + '|' + cs.submittedAt;
+                            const existing = mergedSubsMap.get(key);
+                            if (existing && existing.screenshotData) {
+                                cs.screenshotData = existing.screenshotData;
+                            }
+                            mergedSubsMap.set(key, cs);
+                        });
+                        localSubmissions = Array.from(mergedSubsMap.values());
+                        persistLocalState();
+                        renderAllData();
+                    }
+                });
+
+                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'live_wall'), (snap) => {
+                    updateFirebaseStatusUI(true);
+                    if (!snap.empty) {
+                        const cloudMsgs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                        const mergedWallMap = new Map();
+                        localLiveMessages.forEach(m => mergedWallMap.set((m.senderName || '') + '|' + (m.createdAt || ''), m));
+                        cloudMsgs.forEach(m => mergedWallMap.set((m.senderName || '') + '|' + (m.createdAt || ''), m));
+                        localLiveMessages = Array.from(mergedWallMap.values());
+                        persistLocalState();
+                        renderLiveWall();
+                    }
+                });
+
+                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'pesanan_anda'), (snap) => {
+                    updateFirebaseStatusUI(true);
+                    if (!snap.empty) {
+                        const cloudPsn = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                        const mergedPsnMap = new Map();
+                        localPesananList.forEach(p => mergedPsnMap.set((p.senderName || '') + '|' + (p.createdAt || ''), p));
+                        cloudPsn.forEach(p => mergedPsnMap.set((p.senderName || '') + '|' + (p.createdAt || ''), p));
+                        localPesananList = Array.from(mergedPsnMap.values());
+                        persistLocalState();
+                        renderPesananAnda();
+                    }
+                });
+            };
+
+            signInAnonymously(auth)
+                .then(() => {
+                    attachFirestoreListeners();
+                })
+                .catch((authErr) => {
+                    console.warn("Auth tanpa nama disekat, cuba baca terus Firestore:", authErr.code);
+                    updateFirebaseStatusUI(false, `Firebase Auth menyekat domain ini (${authErr.code}). Sila tambah 'pngpocketcikguamer.netlify.app' di Firebase Console -> Authentication -> Settings -> Authorized domains.`);
+                    attachFirestoreListeners();
+                });
+        } catch (err) {
+            updateFirebaseStatusUI(false, "Gagal memulakan Firebase: " + err.message);
+        }
+    </script>
+</body>
+</html>
